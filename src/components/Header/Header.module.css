@@ -1,0 +1,269 @@
+/* ============================================================
+   Header.module.css
+   Fixed global header — logo, menu toggle, and CTA button.
+   ============================================================ */
+
+/* ---------- Root wrapper ---------- */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-nav, 900);
+  padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1.5rem, 5vw, 5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  /* Start transparent; glass when scrolled via JS class */
+  background-color: transparent;
+  transition:
+    background-color 0.5s var(--ease-power),
+    backdrop-filter 0.5s var(--ease-power);
+}
+
+/* Scrolled state — subtle glass pill */
+.header.scrolled {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* When menu is open, header should still be legible over the dark overlay.
+   We only hide the logo + CTA; the menu button stays. */
+.header.menuOpen {
+  background-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* ---------- Logo ---------- */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+
+  /* Fade-out when menu is open */
+  transition: opacity 0.3s ease, transform 0.4s var(--ease-spring);
+}
+
+.header.menuOpen .logo {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-0.5rem);
+}
+
+.logoMark {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Animated wordmark — the "P" plays a small colour accent */
+.logoWordmark {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.25vw, 1.625rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text-primary, #1f1f1f);
+  line-height: 1;
+  transition: color 0.4s ease;
+}
+
+.logoAccent {
+  color: #ff3454; /* ignite-red */
+}
+
+/* dot separator */
+.logoDot {
+  display: inline-block;
+  width: 0.35em;
+  height: 0.35em;
+  border-radius: 50%;
+  background-color: #ff3454;
+  margin-left: 0.15em;
+  margin-bottom: 0.1em;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: transform 0.4s var(--ease-spring);
+}
+
+.logo:hover .logoDot {
+  transform: scale(1.5);
+}
+
+/* ---------- Right-side controls ---------- */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ---------- Contact CTA ---------- */
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.75rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-brand-white, #f5f5f3);
+  background-color: #ff3454;
+  border: 2px solid #ff3454;
+  border-radius: 9999px;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color 0.4s cubic-bezier(1,0,0,1),
+    color           0.4s cubic-bezier(1,0,0,1),
+    border-color    0.4s cubic-bezier(1,0,0,1),
+    transform       0.2s ease;
+}
+
+/* Liquid fill on hover */
+.ctaBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #0a0a0a;
+  transform: translateY(101%);
+  transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.ctaBtn:hover::before {
+  transform: translateY(0);
+}
+
+.ctaBtn:hover {
+  border-color: #0a0a0a;
+}
+
+.ctaBtn:active {
+  transform: scale(0.96);
+}
+
+.ctaBtnText {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hide CTA when menu is open */
+.header.menuOpen .ctaBtn {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(0.5rem);
+  transition: opacity 0.3s ease, transform 0.4s var(--ease-spring);
+}
+
+/* ---------- Menu toggle button ---------- */
+.menuBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary, #1f1f1f);
+  background: none;
+  border: 1.5px solid var(--border-primary, #e2e2e0);
+  border-radius: 9999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color           0.3s ease,
+    border-color    0.3s ease,
+    background-color 0.3s ease;
+  position: relative;
+  z-index: 960; /* always above overlay panels */
+}
+
+/* When menu is open, button turns light (over dark background) */
+.header.menuOpen .menuBtn {
+  color: var(--color-brand-white, #f5f5f3);
+  border-color: rgba(245, 245, 243, 0.3);
+}
+
+.header.menuOpen .menuBtn:hover {
+  border-color: rgba(245, 245, 243, 0.7);
+  background-color: rgba(245, 245, 243, 0.08);
+}
+
+.menuBtn:hover {
+  background-color: var(--color-neutral-100, #f0f0ee);
+}
+
+/* Hamburger icon */
+.menuIcon {
+  width: 1.125rem;
+  height: 0.85rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.menuIconBar {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  border-radius: 1px;
+  transform-origin: center;
+  transition: transform 0.4s var(--ease-spring), opacity 0.3s ease, width 0.3s ease;
+}
+
+/* Animate to X when open */
+.header.menuOpen .menuIconBar:nth-child(1) {
+  transform: translateY(0.325rem) rotate(45deg);
+}
+.header.menuOpen .menuIconBar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.header.menuOpen .menuIconBar:nth-child(3) {
+  transform: translateY(-0.325rem) rotate(-45deg);
+}
+
+/* Short bottom bar before open state */
+.menuIconBar:nth-child(3) {
+  width: 65%;
+  align-self: flex-end;
+}
+
+.header.menuOpen .menuIconBar:nth-child(3) {
+  width: 100%;
+  align-self: auto;
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 479px) {
+  .ctaBtn {
+    display: none; /* Hide CTA on very small screens */
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .logo,
+  .ctaBtn,
+  .ctaBtn::before,
+  .menuBtn,
+  .menuIconBar {
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,488 @@
+/* ==========================================================================
+   PLAYON — GLOBAL STYLE GUIDE
+   Based on: html_ref.txt / ref_css.txt / ref_css2.txt (Ignite Agency reference)
+   Edit this file to customise the entire design system.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. FONTS
+   Fonts are loaded via next/font/local in layout.tsx and exposed here
+   as CSS custom properties. To swap fonts, edit layout.tsx and update
+   the variable names below.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Font families – populated by next/font CSS variables */
+  --font-heading:  var(--font-soehne),   'Arial Narrow', sans-serif;
+  --font-body:     var(--font-montreal), 'Arial',        sans-serif;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. COLOUR TOKENS
+   All raw palette values live here.
+   Reference semantic aliases (Section 3) in components — never raw values.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* --- Brand --- */
+  --color-brand-black:       #0a0a0a;
+  --color-brand-white:       #f5f5f3;
+  --color-brand-accent:      #2563eb;
+  --color-brand-accent-dark: #1d4ed8;
+
+  /* --- Neutrals --- */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #f9f9f7;
+  --color-neutral-100: #f0f0ee;
+  --color-neutral-200: #e2e2e0;
+  --color-neutral-300: #c8c8c6;
+  --color-neutral-400: #a0a0a0;
+  --color-neutral-500: #6b6b6b;
+  --color-neutral-600: #4a4a4a;
+  --color-neutral-700: #333333;
+  --color-neutral-800: #1f1f1f;
+  --color-neutral-900: #111111;
+  --color-neutral-950: #080808;
+
+  /* --- Semantic feedback --- */
+  --color-success:  #22c55e;
+  --color-warning:  #f59e0b;
+  --color-error:    #ea384c;
+  --color-info:     #3b82f6;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. SEMANTIC COLOUR ALIASES
+   These map raw palette → intent. Swap themes by overriding in .theme-dark.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Backgrounds */
+  --bg-primary:     var(--color-neutral-0);
+  --bg-secondary:   var(--color-neutral-50);
+  --bg-alternate:   var(--color-brand-black);
+  --bg-accent:      var(--color-brand-accent);
+
+  /* Text */
+  --text-primary:   var(--color-neutral-800);
+  --text-secondary: var(--color-neutral-500);
+  --text-alternate: var(--color-brand-white);
+  --text-accent:    var(--color-brand-accent);
+
+  /* Borders */
+  --border-primary: var(--color-neutral-200);
+  --border-accent:  var(--color-brand-accent);
+
+  /* Brand shortcuts */
+  --brand-black:    var(--color-brand-black);
+  --brand-white:    var(--color-brand-white);
+  --brand-accent:   var(--color-brand-accent);
+}
+
+/* Dark theme — apply class="theme-dark" on any section or wrapper */
+.theme-dark {
+  --bg-primary:     var(--color-brand-black);
+  --bg-secondary:   var(--color-neutral-900);
+  --bg-alternate:   var(--color-neutral-0);
+  --text-primary:   var(--color-brand-white);
+  --text-secondary: var(--color-neutral-400);
+  --text-alternate: var(--color-neutral-800);
+  --border-primary: var(--color-neutral-700);
+
+  background-color: var(--bg-primary);
+  color:            var(--text-primary);
+}
+
+
+/* --------------------------------------------------------------------------
+   4. SPACING SCALE
+   Use these tokens for all margin / padding / gap values.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --spacing-0:    0rem;
+  --spacing-0-5:  0.125rem;
+  --spacing-1:    0.25rem;
+  --spacing-1-5:  0.375rem;
+  --spacing-2:    0.5rem;
+  --spacing-2-5:  0.625rem;
+  --spacing-3:    0.75rem;
+  --spacing-3-5:  0.875rem;
+  --spacing-4:    1rem;
+  --spacing-5:    1.25rem;
+  --spacing-6:    1.5rem;
+  --spacing-7:    1.75rem;
+  --spacing-8:    2rem;
+  --spacing-10:   2.5rem;
+  --spacing-12:   3rem;
+  --spacing-14:   3.5rem;
+  --spacing-16:   4rem;
+  --spacing-20:   5rem;
+  --spacing-24:   6rem;
+  --spacing-32:   8rem;
+
+  /* Section-level */
+  --section-padding-v: var(--spacing-24);
+  --section-padding-h: var(--spacing-6);
+  --page-padding:      clamp(1.5rem, 5vw, 5rem);
+}
+
+
+/* --------------------------------------------------------------------------
+   5. TYPOGRAPHY SCALE
+   -------------------------------------------------------------------------- */
+
+:root {
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-md:   1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+  --text-7xl:  4.5rem;
+  --text-8xl:  clamp(3.5rem, 10vw, 7rem);
+  --text-9xl:  clamp(4rem, 15cqw, 10rem);
+
+  /* Line heights */
+  --leading-none:    1;
+  --leading-tight:   0.9;
+  --leading-snug:    1.1;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.03em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.05em;
+  --tracking-wider:   0.1em;
+  --tracking-widest:  0.2em;
+}
+
+/* Heading style helpers */
+.heading-style-h1 {
+  font-family:    var(--font-heading);
+  font-size:      var(--text-8xl);
+  line-height:    var(--leading-tight);
+  font-weight:    600;
+  letter-spacing: var(--tracking-snug);
+  text-transform: uppercase;
+}
+
+.heading-style-h2 {
+  font-family:    var(--font-heading);
+  font-size:      var(--text-7xl);
+  line-height:    var(--leading-tight);
+  font-weight:    600;
+  letter-spacing: var(--tracking-snug);
+  text-transform: uppercase;
+}
+
+.heading-style-h3 {
+  font-family:    var(--font-heading);
+  font-size:      var(--text-5xl);
+  line-height:    var(--leading-snug);
+  font-weight:    600;
+  letter-spacing: var(--tracking-snug);
+  text-transform: uppercase;
+}
+
+.heading-style-h4 {
+  font-family: var(--font-body);
+  font-size:   var(--text-3xl);
+  line-height: var(--leading-snug);
+  font-weight: 500;
+}
+
+.text-style-body-large {
+  font-family: var(--font-body);
+  font-size:   var(--text-xl);
+  line-height: var(--leading-relaxed);
+  font-weight: 400;
+}
+
+.text-style-body {
+  font-family: var(--font-body);
+  font-size:   var(--text-md);
+  line-height: var(--leading-normal);
+  font-weight: 400;
+}
+
+.text-style-body-small {
+  font-family: var(--font-body);
+  font-size:   var(--text-sm);
+  line-height: var(--leading-normal);
+  font-weight: 400;
+}
+
+.text-style-label {
+  font-family:    var(--font-body);
+  font-size:      var(--text-xs);
+  line-height:    var(--leading-normal);
+  font-weight:    500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+
+/* --------------------------------------------------------------------------
+   6. BORDER RADIUS
+   -------------------------------------------------------------------------- */
+
+:root {
+  --radius-none: 0;
+  --radius-xs:   0.125rem;
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+  --radius-full: 9999px;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. SHADOWS
+   -------------------------------------------------------------------------- */
+
+:root {
+  --shadow-sm:   0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:   0 4px 12px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
+  --shadow-lg:   0 10px 30px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.08);
+  --shadow-xl:   0 20px 60px rgba(0,0,0,.16), 0 8px 16px rgba(0,0,0,.08);
+  --shadow-dark: 4px 10px 50px 10px rgba(0,0,0,.40);
+  --shadow-glow: 0 0 0 2px var(--brand-accent);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. LAYOUT & CONTAINERS
+   -------------------------------------------------------------------------- */
+
+:root {
+  --container-xs:    480px;
+  --container-sm:    640px;
+  --container-md:    768px;
+  --container-lg:    960px;
+  --container-xl:    1200px;
+  --container-2xl:   1400px;
+  --container-large: var(--container-xl);
+}
+
+.container-large {
+  max-width:    var(--container-large);
+  margin-left:  auto;
+  margin-right: auto;
+  width:        100%;
+}
+
+.padding-global {
+  padding-left:  var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+
+/* --------------------------------------------------------------------------
+   9. TRANSITIONS & EASING
+   -------------------------------------------------------------------------- */
+
+:root {
+  --duration-fast:   150ms;
+  --duration-normal: 300ms;
+  --duration-slow:   600ms;
+  --duration-slower: 1000ms;
+
+  --ease-default:  ease;
+  --ease-in:       cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring:   cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-bounce:   cubic-bezier(0.07, 1.194, 0.175, 1.001);
+  --ease-power:    cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+
+/* --------------------------------------------------------------------------
+   10. Z-INDEX SCALE
+   -------------------------------------------------------------------------- */
+
+:root {
+  --z-below:    -1;
+  --z-base:      0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-nav:      900;
+  --z-toast:   1000;
+  --z-tooltip: 1100;
+}
+
+
+/* --------------------------------------------------------------------------
+   11. GLOBAL RESET & BASE STYLES
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin:     0;
+  padding:    0;
+}
+
+html {
+  height:                   100%;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior:          smooth;
+}
+
+body {
+  min-height:               100%;
+  font-family:              var(--font-body);
+  font-size:                var(--text-md);
+  line-height:              var(--leading-normal);
+  color:                    var(--text-primary);
+  background-color:         var(--bg-primary);
+  -webkit-font-smoothing:   antialiased;
+  -moz-osx-font-smoothing:  grayscale;
+}
+
+img, video {
+  max-width: 100%;
+  display:   block;
+}
+
+a {
+  color:           inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor:             pointer;
+  font:               inherit;
+  color:              inherit;
+  background:         none;
+  border:             none;
+  -webkit-appearance: button;
+}
+
+ul, ol { list-style: none; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family:    var(--font-heading);
+  font-weight:    600;
+  letter-spacing: var(--tracking-snug);
+  line-height:    var(--leading-tight);
+  text-transform: uppercase;
+}
+
+h1 { font-size: var(--text-8xl); }
+h2 { font-size: var(--text-7xl); }
+h3 { font-size: var(--text-5xl); }
+h4 { font-size: var(--text-3xl); font-weight: 500; text-transform: none; }
+h5 { font-size: var(--text-xl);  font-weight: 500; text-transform: none; }
+h6 { font-size: var(--text-lg);  font-weight: 500; text-transform: none; }
+
+p { line-height: var(--leading-normal); }
+fieldset { border: none; margin: 0; padding: 0; }
+svg { display: block; }
+
+
+/* --------------------------------------------------------------------------
+   12. UTILITY CLASSES
+   -------------------------------------------------------------------------- */
+
+.display-none     { display: none; }
+.display-block    { display: block; }
+.display-flex     { display: flex; }
+.display-grid     { display: grid; }
+.display-contents { display: contents; }
+
+.text-align-left   { text-align: left; }
+.text-align-center { text-align: center; }
+.text-align-right  { text-align: right; }
+
+.overflow-hidden { overflow: hidden; }
+.overflow-clip   { overflow: clip; }
+.pointer-none    { pointer-events: none; }
+
+/* Responsive visibility */
+.hide-mobile-landscape { display: none; }
+@media (min-width: 480px) { .hide-mobile-landscape { display: block; } }
+
+.hide-mobile-portrait  { display: none; }
+@media (min-width: 768px) { .hide-mobile-portrait { display: block; } }
+
+.show-mobile-portrait  { display: block; }
+@media (min-width: 768px) { .show-mobile-portrait { display: none; } }
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width:    1px;
+  height:   1px;
+  padding:  0;
+  margin:  -1px;
+  overflow: hidden;
+  clip:     rect(0,0,0,0);
+  border:   0;
+}
+
+
+/* --------------------------------------------------------------------------
+   13. KEYFRAME ANIMATIONS
+   -------------------------------------------------------------------------- */
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-1.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero rotating text — ref: hero-industry-swap */
+@keyframes hero-industry-swap {
+  0%             { transform: translateY(100%); }
+  5.33%, 31.66%  { transform: translateY(0%); }
+  38%, 100%      { transform: translateY(-100%); }
+}
+
+/* Marquee scroll */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+
+/* --------------------------------------------------------------------------
+   14. RESPONSIVE BREAKPOINTS (reference)
+
+   Mobile portrait:   max-width: 479px
+   Mobile landscape:  max-width: 767px
+   Tablet:            max-width: 991px
+   Desktop:           min-width: 992px
+
+   Usage in components:
+     @media screen and (max-width: 479px) { ... }
+     @media screen and (max-width: 767px) { ... }
+     @media screen and (max-width: 991px) { ... }
+   -------------------------------------------------------------------------- */

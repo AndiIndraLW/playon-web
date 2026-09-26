@@ -1,0 +1,332 @@
+/* ============================================================
+   NavMenu.module.css
+   Full-screen overlay menu with 3-panel staggered reveal.
+   Panels slide in from the right; content fades/slides up.
+   ============================================================ */
+
+/* ---------- Overlay root ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  pointer-events: none;
+}
+
+.overlay.isOpen {
+  pointer-events: all;
+}
+
+/* ---------- The three stagger panels ----------
+   All three sit stacked in the same grid cell so they
+   perfectly overlap. They slide in from the right.
+   Panel 1 → accent red (fastest)
+   Panel 2 → brand blue
+   Panel 3 → near-black (slowest, reveals the nav content)
+   ------------------------------------------------ */
+.panel {
+  position: absolute;
+  inset: 0;
+  transform: translateX(100%);
+  will-change: transform;
+}
+
+/* Opening: panels slide in */
+.overlay.isOpen .panel1 {
+  transform: translateX(0);
+  transition: transform 0.65s cubic-bezier(0.86, 0, 0.07, 1) 0s;
+}
+.overlay.isOpen .panel2 {
+  transform: translateX(0);
+  transition: transform 0.65s cubic-bezier(0.86, 0, 0.07, 1) 0.07s;
+}
+.overlay.isOpen .panel3 {
+  transform: translateX(0);
+  transition: transform 0.65s cubic-bezier(0.86, 0, 0.07, 1) 0.14s;
+}
+
+/* Closing: panels slide back to the right in reverse order */
+.overlay.isClosing .panel3 {
+  transform: translateX(100%);
+  transition: transform 0.55s cubic-bezier(0.86, 0, 0.07, 1) 0s;
+}
+.overlay.isClosing .panel2 {
+  transform: translateX(100%);
+  transition: transform 0.55s cubic-bezier(0.86, 0, 0.07, 1) 0.07s;
+}
+.overlay.isClosing .panel1 {
+  transform: translateX(100%);
+  transition: transform 0.55s cubic-bezier(0.86, 0, 0.07, 1) 0.14s;
+}
+
+/* Panel colour fills */
+.panel1 { background-color: #ff3454; z-index: 1; }  /* ignite-red  — enters 1st, exits last  */
+.panel2 { background-color: #1043f9; z-index: 2; }  /* ignite-blue — enters 2nd, exits 2nd  */
+.panel3 { background-color: #0a0a0a; z-index: 3; }  /* brand-black — enters last, exits 1st */
+
+/* ---------- Menu content (lives inside panel3) ---------- */
+.menuContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 5vw, 5rem);
+  padding-top: clamp(5rem, 8vw, 7rem); /* clear the fixed header */
+  color: var(--color-brand-white);
+  overflow: hidden;
+}
+
+/* ---------- Close button ---------- */
+.closeBtn {
+  position: absolute;
+  top: clamp(1.25rem, 3vw, 2rem);
+  right: clamp(1.5rem, 5vw, 5rem);
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+  border: 1.5px solid rgba(245, 245, 243, 0.25);
+  border-radius: 9999px;
+  color: var(--color-brand-white);
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.5s var(--ease-spring);
+  z-index: 10;
+
+  /* hidden until panel is fully in */
+  opacity: 0;
+  transform: scale(0.6) rotate(-90deg);
+}
+
+.overlay.isOpen .closeBtn {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  transition:
+    opacity 0.4s ease 0.55s,
+    transform 0.6s var(--ease-spring) 0.5s,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.overlay.isClosing .closeBtn {
+  opacity: 0;
+  transform: scale(0.6) rotate(90deg);
+  transition: opacity 0.2s ease 0s, transform 0.3s ease 0s;
+}
+
+.closeBtn:hover {
+  border-color: var(--color-brand-white);
+  background-color: rgba(245, 245, 243, 0.1);
+}
+
+.closeIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+  position: relative;
+}
+.closeIcon::before,
+.closeIcon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  border-radius: 2px;
+}
+.closeIcon::before { transform: translateY(-50%) rotate(45deg); }
+.closeIcon::after  { transform: translateY(-50%) rotate(-45deg); }
+
+/* ---------- Nav link list ---------- */
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.125rem;
+}
+
+.navItem {
+  overflow: hidden; /* clip the slide-up reveal */
+}
+
+/* Inner wrapper that gets the transform treatment */
+.navItemInner {
+  display: block;
+  transform: translateY(110%);
+  opacity: 0;
+}
+
+/* Stagger in on open */
+.overlay.isOpen .navItemInner {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.overlay.isOpen .navItem:nth-child(1) .navItemInner { transition: transform 0.7s var(--ease-spring) 0.30s, opacity 0.5s ease 0.30s; }
+.overlay.isOpen .navItem:nth-child(2) .navItemInner { transition: transform 0.7s var(--ease-spring) 0.37s, opacity 0.5s ease 0.37s; }
+.overlay.isOpen .navItem:nth-child(3) .navItemInner { transition: transform 0.7s var(--ease-spring) 0.44s, opacity 0.5s ease 0.44s; }
+.overlay.isOpen .navItem:nth-child(4) .navItemInner { transition: transform 0.7s var(--ease-spring) 0.51s, opacity 0.5s ease 0.51s; }
+.overlay.isOpen .navItem:nth-child(5) .navItemInner { transition: transform 0.7s var(--ease-spring) 0.58s, opacity 0.5s ease 0.58s; }
+
+/* Closing — snap items back instantly */
+.overlay.isClosing .navItemInner {
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform 0.2s ease 0s, opacity 0.15s ease 0s;
+}
+
+/* The nav link anchor */
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-brand-white);
+  text-decoration: none;
+  padding: 0.2rem 0;
+  position: relative;
+  cursor: pointer;
+
+  /* underline reveal via clip-path */
+  --underline-scale: 0;
+}
+
+/* Animated underline */
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-brand-white);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-spring);
+}
+
+.navLink:hover::after { transform: scaleX(1); }
+
+/* Number badge on hover */
+.navLinkNum {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1.2vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: translateX(-0.5rem);
+  transition: opacity 0.3s ease, transform 0.4s var(--ease-spring);
+  color: rgba(245, 245, 243, 0.4);
+  align-self: flex-start;
+  margin-top: 0.4em;
+  flex-shrink: 0;
+}
+
+.navLink:hover .navLinkNum {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Colour tint shift on hover */
+.navLink:hover {
+  color: rgba(245, 245, 243, 0.75);
+  transition: color 0.35s ease;
+}
+
+/* ---------- Footer row inside menu ---------- */
+.menuFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(245, 245, 243, 0.12);
+
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.overlay.isOpen .menuFooter {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease 0.7s, transform 0.6s var(--ease-spring) 0.65s;
+}
+
+.overlay.isClosing .menuFooter {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.menuFooterContact {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: rgba(245, 245, 243, 0.5);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.menuFooterEmail {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: 500;
+  color: var(--color-brand-white);
+  text-decoration: none;
+  position: relative;
+}
+.menuFooterEmail::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-spring);
+}
+.menuFooterEmail:hover::after { transform: scaleX(1); }
+
+.menuFooterSocials {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.socialLink {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 243, 0.5);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.socialLink:hover { color: var(--color-brand-white); }
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 767px) {
+  .navLink {
+    font-size: clamp(2.25rem, 11vw, 4rem);
+  }
+
+  .menuFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
