@@ -104,10 +104,11 @@ export default function NavMenu({ isOpen, onClose }: NavMenuProps) {
       aria-modal="true"
       aria-label="Navigation menu"
     >
-      {/* ─── The three stagger panels ─── */}
+      {/* ─── The four stagger panels ─── */}
       <div className={`${styles.panel} ${styles.panel1}`} aria-hidden="true" />
       <div className={`${styles.panel} ${styles.panel2}`} aria-hidden="true" />
-      <div className={`${styles.panel} ${styles.panel3}`} aria-hidden="true">
+      <div className={`${styles.panel} ${styles.panel3}`} aria-hidden="true" />
+      <div className={`${styles.panel} ${styles.panel4}`} aria-hidden="true">
 
         {/* Close button */}
         <button

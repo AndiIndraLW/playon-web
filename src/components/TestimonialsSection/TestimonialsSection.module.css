@@ -1,0 +1,203 @@
+/* ============================================================
+   TestimonialsSection.module.css — Updated with Malachite Accent
+   Racing Red: #F72C25 | Sunflower Gold: #F7B32B | Malachite: #22D760
+   Powder Petal: #FEE8DC | White Smoke: #F2F2F2 | Black: #000000
+   ============================================================ */
+
+.section {
+  position: relative;
+  width: 100%;
+  padding: clamp(5rem, 12vh, 9rem) 0;
+  background-color: #000000;
+  color: #F2F2F2;
+  border-top: 1px solid rgba(242, 242, 242, 0.08);
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 5rem);
+}
+
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(3rem, 6vh, 4.5rem);
+}
+
+.headerTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #F2F2F2;
+  margin: 0;
+}
+
+.navControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(242, 242, 242, 0.25);
+  background: rgba(242, 242, 242, 0.04);
+  color: #F2F2F2;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+}
+
+.navBtn:hover:not(:disabled) {
+  background: #22D760; /* Malachite */
+  color: #000000;
+  border-color: #22D760;
+  transform: scale(1.08);
+}
+
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.navIcon {
+  width: 1.35rem;
+  height: 1.35rem;
+  stroke-width: 2.2;
+}
+
+.slideWrapper {
+  position: relative;
+  width: 100%;
+  min-height: clamp(280px, 35vh, 400px);
+  display: flex;
+  align-items: center;
+}
+
+.testimonialCard {
+  width: 100%;
+  background: rgba(242, 242, 242, 0.03);
+  border: 1.5px solid rgba(242, 242, 242, 0.12);
+  border-radius: 1.75rem;
+  padding: clamp(2.5rem, 5vw, 4.5rem);
+  backdrop-filter: blur(12px);
+  display: grid;
+  grid-template-columns: clamp(240px, 28vw, 360px) 1fr;
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: flex-start;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border-right: 1px solid rgba(242, 242, 242, 0.12);
+  padding-right: clamp(1.5rem, 3vw, 3rem);
+}
+
+.authorName {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.2vw, 2.25rem);
+  font-weight: 600;
+  color: #F2F2F2;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.authorCompany {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  font-weight: 500;
+  color: #F7B32B; /* Sunflower Gold */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.quoteGrid {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quoteMark {
+  position: absolute;
+  top: -2.5rem;
+  right: -1rem;
+  font-family: var(--font-heading);
+  font-size: clamp(6rem, 14vw, 11rem);
+  line-height: 1;
+  color: rgba(34, 215, 96, 0.08); /* Malachite accent quote mark */
+  pointer-events: none;
+  user-select: none;
+}
+
+.quoteText {
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2.6vw, 2.65rem);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: #F2F2F2;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.dotsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: clamp(2.5rem, 4vh, 3.5rem);
+}
+
+.dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: rgba(242, 242, 242, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dot.activeDot {
+  background: #22D760; /* Malachite */
+  width: 2.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 0 15px rgba(34, 215, 96, 0.6);
+}
+
+@media (max-width: 860px) {
+  .testimonialCard {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .authorMeta {
+    border-right: none;
+    border-bottom: 1px solid rgba(242, 242, 242, 0.12);
+    padding-right: 0;
+    padding-bottom: 1.25rem;
+  }
+}

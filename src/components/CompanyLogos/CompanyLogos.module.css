@@ -1,0 +1,165 @@
+/* ============================================================
+   CompanyLogos.module.css — Client / Company Showcase Bar
+   ============================================================ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  pointer-events: auto;
+  user-select: none;
+  z-index: 10;
+  padding-bottom: clamp(1rem, 3vh, 2.5rem);
+}
+
+/* Subtle showcase text */
+.label {
+  font-family: var(--font-montreal), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: clamp(0.6875rem, 1.2vw, 0.8125rem);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.label::before,
+.label::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+.label::after {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+}
+
+/* Desktop static flex layout */
+.logoList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(1.75rem, 4.5vw, 4rem);
+  width: 100%;
+  padding: 0 1rem;
+}
+
+/* Desktop / Mobile layout toggles */
+.desktopOnly {
+  display: flex;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* Individual logo wrapper */
+.logoItem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.55);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logoItem:hover {
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+  filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.3));
+}
+
+.logoSvg {
+  height: clamp(20px, 3vh, 32px);
+  width: auto;
+  display: block;
+  fill: currentColor;
+}
+
+/* Mobile auto-sliding marquee track */
+@media (max-width: 640px) {
+  .container {
+    gap: 0.875rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .label::before,
+  .label::after {
+    width: 20px;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: flex;
+    width: 100vw;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+  }
+
+  .marqueeWrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .marqueeTrack {
+    display: flex;
+    align-items: center;
+    gap: 2.75rem;
+    width: max-content;
+    animation: logoMarquee 22s linear infinite;
+    padding: 0.5rem 0;
+  }
+
+  .logoSvg {
+    height: 22px;
+  }
+}
+
+@keyframes logoMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

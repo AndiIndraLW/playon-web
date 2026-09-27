@@ -1,0 +1,28 @@
+/* ============================================================
+   ScrollRevealText.module.css
+   Apple-style word-by-word scroll reveal text
+   ============================================================ */
+
+.textContainer {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7.5vw, 8rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-align: left;
+  color: #ffffff;
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.28em;
+  row-gap: 0.05em;
+  user-select: none;
+}
+
+.word {
+  display: inline-block;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out, color 0.25s ease-out, filter 0.25s ease-out;
+  will-change: opacity, transform;
+}

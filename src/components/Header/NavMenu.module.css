@@ -1,6 +1,6 @@
 /* ============================================================
    NavMenu.module.css
-   Full-screen overlay menu with 3-panel staggered reveal.
+   Full-screen overlay menu with 4-panel staggered reveal.
    Panels slide in from the right; content fades/slides up.
    ============================================================ */
 
@@ -16,12 +16,13 @@
   pointer-events: all;
 }
 
-/* ---------- The three stagger panels ----------
-   All three sit stacked in the same grid cell so they
+/* ---------- The four stagger panels ----------
+   All four sit stacked in the same grid cell so they
    perfectly overlap. They slide in from the right.
-   Panel 1 → accent red (fastest)
-   Panel 2 → brand blue
-   Panel 3 → near-black (slowest, reveals the nav content)
+   Panel 1 → Racing Red (fastest)
+   Panel 2 → Malachite
+   Panel 3 → Sunflower Gold
+   Panel 4 → Black (slowest, reveals the nav content)
    ------------------------------------------------ */
 .panel {
   position: absolute;
@@ -43,25 +44,34 @@
   transform: translateX(0);
   transition: transform 0.65s cubic-bezier(0.86, 0, 0.07, 1) 0.14s;
 }
+.overlay.isOpen .panel4 {
+  transform: translateX(0);
+  transition: transform 0.65s cubic-bezier(0.86, 0, 0.07, 1) 0.21s;
+}
 
 /* Closing: panels slide back to the right in reverse order */
-.overlay.isClosing .panel3 {
+.overlay.isClosing .panel4 {
   transform: translateX(100%);
   transition: transform 0.55s cubic-bezier(0.86, 0, 0.07, 1) 0s;
 }
-.overlay.isClosing .panel2 {
+.overlay.isClosing .panel3 {
   transform: translateX(100%);
   transition: transform 0.55s cubic-bezier(0.86, 0, 0.07, 1) 0.07s;
 }
-.overlay.isClosing .panel1 {
+.overlay.isClosing .panel2 {
   transform: translateX(100%);
   transition: transform 0.55s cubic-bezier(0.86, 0, 0.07, 1) 0.14s;
 }
+.overlay.isClosing .panel1 {
+  transform: translateX(100%);
+  transition: transform 0.55s cubic-bezier(0.86, 0, 0.07, 1) 0.21s;
+}
 
-/* Panel colour fills */
-.panel1 { background-color: #ff3454; z-index: 1; }  /* ignite-red  — enters 1st, exits last  */
-.panel2 { background-color: #1043f9; z-index: 2; }  /* ignite-blue — enters 2nd, exits 2nd  */
-.panel3 { background-color: #0a0a0a; z-index: 3; }  /* brand-black — enters last, exits 1st */
+/* Panel colour fills — Palette: Racing Red, Malachite, Sunflower Gold, Black */
+.panel1 { background-color: #F72C25; z-index: 1; }  /* Racing Red */
+.panel2 { background-color: #22D760; z-index: 2; }  /* Malachite */
+.panel3 { background-color: #F7B32B; z-index: 3; }  /* Sunflower Gold */
+.panel4 { background-color: #000000; z-index: 4; }  /* Black */
 
 /* ---------- Menu content (lives inside panel3) ---------- */
 .menuContent {

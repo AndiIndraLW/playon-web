@@ -41,14 +41,14 @@ export default function Header() {
   const closeMenu = useCallback(() => {
     setIsClosing(true);
 
-    // 55s panel exit + 14s stagger offset ≈ 700ms total; give 750ms buffer
+    // 0.55s panel exit + 0.21s stagger offset ≈ 760ms total; give 850ms buffer
     closeTimerRef.current = setTimeout(() => {
       setMenuOpen(false);
       setIsClosing(false);
       closeTimerRef.current = null;
       // Return focus to the menu button after close
       menuBtnRef.current?.focus();
-    }, 750);
+    }, 850);
   }, []);
 
   const toggleMenu = useCallback(() => {

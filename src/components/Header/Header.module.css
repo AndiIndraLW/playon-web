@@ -1,9 +1,9 @@
 /* ============================================================
-   Header.module.css
-   Fixed global header — logo, menu toggle, and CTA button.
+   Header.module.css — Updated with Malachite Accent
+   Racing Red: #F72C25 | Sunflower Gold: #F7B32B | Malachite: #22D760
+   Powder Petal: #FEE8DC | White Smoke: #F2F2F2 | Black: #000000
    ============================================================ */
 
-/* ---------- Root wrapper ---------- */
 .header {
   position: fixed;
   inset: 0 0 auto 0;
@@ -13,23 +13,20 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-
-  /* Start transparent; glass when scrolled via JS class */
   background-color: transparent;
   transition:
     background-color 0.5s var(--ease-power),
     backdrop-filter 0.5s var(--ease-power);
 }
 
-/* Scrolled state — subtle glass pill */
+/* Scrolled state — subtle glass dark pill */
 .header.scrolled {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(242, 242, 242, 0.1);
 }
 
-/* When menu is open, header should still be legible over the dark overlay.
-   We only hide the logo + CTA; the menu button stays. */
 .header.menuOpen {
   background-color: transparent;
   backdrop-filter: none;
@@ -43,8 +40,6 @@
   text-decoration: none;
   position: relative;
   z-index: 1;
-
-  /* Fade-out when menu is open */
   transition: opacity 0.3s ease, transform 0.4s var(--ease-spring);
 }
 
@@ -60,29 +55,27 @@
   gap: 0.5rem;
 }
 
-/* Animated wordmark — the "P" plays a small colour accent */
 .logoWordmark {
   font-family: var(--font-heading);
   font-size: clamp(1.25rem, 2.25vw, 1.625rem);
   font-weight: 600;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: var(--text-primary, #1f1f1f);
+  color: #F2F2F2;
   line-height: 1;
   transition: color 0.4s ease;
 }
 
 .logoAccent {
-  color: #ff3454; /* ignite-red */
+  color: #22D760; /* Malachite */
 }
 
-/* dot separator */
 .logoDot {
   display: inline-block;
   width: 0.35em;
   height: 0.35em;
   border-radius: 50%;
-  background-color: #ff3454;
+  background-color: #22D760; /* Malachite */
   margin-left: 0.15em;
   margin-bottom: 0.1em;
   vertical-align: middle;
@@ -109,18 +102,19 @@
   padding: 0.8rem 1.75rem;
   font-family: var(--font-body);
   font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--color-brand-white, #f5f5f3);
-  background-color: #ff3454;
-  border: 2px solid #ff3454;
+  color: #000000;
+  background-color: #22D760;
+  border: 2px solid #22D760;
   border-radius: 9999px;
   white-space: nowrap;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(34, 215, 96, 0.4);
   transition:
     background-color 0.4s cubic-bezier(1,0,0,1),
     color           0.4s cubic-bezier(1,0,0,1),
@@ -128,12 +122,11 @@
     transform       0.2s ease;
 }
 
-/* Liquid fill on hover */
 .ctaBtn::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: #0a0a0a;
+  background-color: #F2F2F2;
   transform: translateY(101%);
   transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
   border-radius: inherit;
@@ -145,7 +138,8 @@
 }
 
 .ctaBtn:hover {
-  border-color: #0a0a0a;
+  border-color: #F2F2F2;
+  color: #000000;
 }
 
 .ctaBtn:active {
@@ -157,7 +151,6 @@
   z-index: 1;
 }
 
-/* Hide CTA when menu is open */
 .header.menuOpen .ctaBtn {
   opacity: 0;
   pointer-events: none;
@@ -176,9 +169,9 @@
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--text-primary, #1f1f1f);
-  background: none;
-  border: 1.5px solid var(--border-primary, #e2e2e0);
+  color: #F2F2F2;
+  background: rgba(242, 242, 242, 0.05);
+  border: 1.5px solid rgba(242, 242, 242, 0.35);
   border-radius: 9999px;
   cursor: pointer;
   white-space: nowrap;
@@ -187,22 +180,22 @@
     border-color    0.3s ease,
     background-color 0.3s ease;
   position: relative;
-  z-index: 960; /* always above overlay panels */
+  z-index: 960;
 }
 
-/* When menu is open, button turns light (over dark background) */
 .header.menuOpen .menuBtn {
-  color: var(--color-brand-white, #f5f5f3);
-  border-color: rgba(245, 245, 243, 0.3);
+  color: #F2F2F2;
+  border-color: rgba(242, 242, 242, 0.3);
 }
 
 .header.menuOpen .menuBtn:hover {
-  border-color: rgba(245, 245, 243, 0.7);
-  background-color: rgba(245, 245, 243, 0.08);
+  border-color: rgba(242, 242, 242, 0.7);
+  background-color: rgba(242, 242, 242, 0.08);
 }
 
 .menuBtn:hover {
-  background-color: var(--color-neutral-100, #f0f0ee);
+  background-color: rgba(242, 242, 242, 0.15);
+  border-color: rgba(242, 242, 242, 0.7);
 }
 
 /* Hamburger icon */
@@ -226,7 +219,6 @@
   transition: transform 0.4s var(--ease-spring), opacity 0.3s ease, width 0.3s ease;
 }
 
-/* Animate to X when open */
 .header.menuOpen .menuIconBar:nth-child(1) {
   transform: translateY(0.325rem) rotate(45deg);
 }
@@ -238,7 +230,6 @@
   transform: translateY(-0.325rem) rotate(-45deg);
 }
 
-/* Short bottom bar before open state */
 .menuIconBar:nth-child(3) {
   width: 65%;
   align-self: flex-end;
@@ -249,21 +240,8 @@
   align-self: auto;
 }
 
-/* ---------- Responsive ---------- */
 @media screen and (max-width: 479px) {
   .ctaBtn {
-    display: none; /* Hide CTA on very small screens */
-  }
-}
-
-/* ---------- Reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .header,
-  .logo,
-  .ctaBtn,
-  .ctaBtn::before,
-  .menuBtn,
-  .menuIconBar {
-    transition-duration: 0.01ms !important;
+    display: none;
   }
 }

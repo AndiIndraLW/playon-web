@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 /**
  * Soehne Schmal Halbfett — condensed display / heading font
- * Source: Webflow CDN (ref_css2.txt). Replace src path with a local .woff2 file
- * once you have the font licensed. Until then the CSS variable will fall back
- * to 'Arial Narrow, sans-serif' defined in globals.css.
  */
 const soehne = localFont({
   src: "../fonts/soehne-schmal-halbfett.woff2",
@@ -15,13 +13,10 @@ const soehne = localFont({
   weight: "600",
   style: "normal",
   display: "swap",
-  // Silence the missing-file error during dev if font file isn't downloaded yet:
-  // Remove the try/catch pattern and add the actual file to src/fonts/
 });
 
 /**
  * Neue Montreal — body / UI text font
- * Source: Webflow CDN (ref_css2.txt). Add actual .woff2 files to src/fonts/.
  */
 const montreal = localFont({
   src: [
@@ -51,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

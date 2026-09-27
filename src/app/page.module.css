@@ -1,14 +1,17 @@
 /* ============================================================
-   page.module.css — Hero section
-   Full-viewport video background
+   page.module.css — Hero & Section 1
+   Official Palette:
+   Racing Red: #F72C25 | Sunflower Gold: #F7B32B | Malachite: #22D760
+   Powder Petal: #FEE8DC | White Smoke: #F2F2F2 | Black: #000000
    ============================================================ */
 
+/* ---------- Hero Section ---------- */
 .heroSection {
   position: relative;
   width: 100%;
-  height: 100svh;         /* full screen height, safe on mobile */
+  height: 100svh;
   overflow: hidden;
-  background-color: #0a0a0a; /* fallback while video loads */
+  background-color: #000000;
 }
 
 /* ---------- Video ---------- */
@@ -19,7 +22,6 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  /* Remove the default 4px inline-block gap */
   display: block;
 }
 
@@ -27,15 +29,15 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  /* Subtle gradient: slightly darker at top (behind header) and bottom */
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.35) 0%,
-    rgba(0, 0, 0, 0.05) 40%,
-    rgba(0, 0, 0, 0.05) 65%,
-    rgba(0, 0, 0, 0.45) 100%
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.15) 35%,
+    rgba(0, 0, 0, 0.2) 65%,
+    rgba(0, 0, 0, 0.85) 100%
   );
   pointer-events: none;
+  z-index: 1;
 }
 
 /* ---------- Hero content wrapper ---------- */
@@ -43,24 +45,164 @@
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(5.5rem, 12vh, 8.5rem) clamp(1.5rem, 5vw, 6rem) clamp(1rem, 3vh, 2rem);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ---------- Hero main centered headline & CTA container ---------- */
+.heroMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 clamp(1.5rem, 6vw, 8rem);
-  pointer-events: none;
+  gap: clamp(1.5rem, 3.5vh, 2.5rem);
+  width: 100%;
 }
 
 /* ---------- Hero headline ---------- */
 .heroHeadline {
   font-family: var(--font-heading);
-  font-size: clamp(3rem, 9vw, 9rem);
+  font-size: clamp(2.85rem, 8.5vw, 8rem);
   font-weight: 600;
   line-height: 0.88;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   text-align: center;
-  color: #ffffff;
+  color: #F2F2F2;
   text-shadow:
-    0 2px 40px rgba(0, 0, 0, 0.45),
-    0 1px 4px  rgba(0, 0, 0, 0.3);
+    0 2px 40px rgba(0, 0, 0, 0.6),
+    0 1px 4px  rgba(0, 0, 0, 0.4);
   max-width: 18ch;
+  margin: 0;
+}
+
+/* ---------- Hero CTA button ("Im Interested!") ---------- */
+.heroCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2.25rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.3vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #000000;
+  background-color: #22D760; /* Malachite */
+  border: 2px solid #22D760;
+  border-radius: 9999px;
+  text-decoration: none;
+  pointer-events: auto;
+  cursor: pointer;
+  box-shadow: 0 4px 25px rgba(34, 215, 96, 0.45);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.heroCtaBtn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 35px rgba(247, 179, 43, 0.5);
+  background-color: #F7B32B;
+  border-color: #F7B32B;
+  color: #000000;
+}
+
+.heroCtaBtn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* ============================================================
+   Section 1 — Full screen intro section (100svh)
+   ============================================================ */
+.sectionOne {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  background-color: #000000;
+  color: #F2F2F2;
+  padding: clamp(4rem, 10vh, 8rem) clamp(1.5rem, 4vw, 5rem);
+  overflow: hidden;
+  border-top: 1px solid rgba(242, 242, 242, 0.08);
+}
+
+/* Ambient background glow accent */
+.sectionOneGlow {
+  position: absolute;
+  top: 25%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: radial-gradient(circle, rgba(34, 215, 96, 0.14) 0%, transparent 70%);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.sectionOneContainer {
+  position: relative;
+  z-index: 2;
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(2rem, 5vh, 3.5rem);
+}
+
+.sectionOneTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7.5vw, 8rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-align: left;
+  color: #F2F2F2;
+  max-width: 100%;
+  margin: 0;
+}
+
+.sectionOneCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1.1rem 2.75rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.3vw, 1.125rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #F2F2F2;
+  background: transparent;
+  border: 2px solid rgba(242, 242, 242, 0.85);
+  border-radius: 9999px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sectionOneCta:hover {
+  background-color: #22D760; /* Malachite */
+  color: #000000;
+  border-color: #22D760;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(34, 215, 96, 0.4);
+}
+
+.sectionOneCtaIcon {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.sectionOneCta:hover .sectionOneCtaIcon {
+  transform: translateX(4px);
 }

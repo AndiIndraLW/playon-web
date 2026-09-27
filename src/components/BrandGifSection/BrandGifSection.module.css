@@ -1,0 +1,33 @@
+/* ============================================================
+   BrandGifSection.module.css
+   Full-width Showcase Section displaying brandgif.gif
+   ============================================================ */
+
+.section {
+  position: relative;
+  width: 100%;
+  background-color: #000000;
+  padding: clamp(3rem, 6vh, 6rem) clamp(1.5rem, 4vw, 5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-top: 1px solid rgba(242, 242, 242, 0.08);
+}
+
+.gifWrapper {
+  width: 100%;
+  max-width: 1400px;
+  border-radius: clamp(1rem, 2.5vw, 2rem);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  background-color: #080808;
+  position: relative;
+}
+
+.gifImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
