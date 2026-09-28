@@ -189,11 +189,11 @@
 }
 
 .sectionOneCta:hover {
-  background-color: #22D760; /* Malachite */
+  background-color: #F7B32B; /* Sunflower Gold */
   color: #000000;
-  border-color: #22D760;
+  border-color: #F7B32B;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(34, 215, 96, 0.4);
+  box-shadow: 0 8px 30px rgba(247, 179, 43, 0.45);
 }
 
 .sectionOneCtaIcon {

@@ -5,6 +5,7 @@ import ScrollRevealText from '@/components/ScrollRevealText';
 import HighlightsSection from '@/components/HighlightsSection';
 import RecentProjectsSection from '@/components/RecentProjectsSection';
 import BrandGifSection from '@/components/BrandGifSection';
+import ServicesSection from '@/components/ServicesSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ArticlesSection from '@/components/ArticlesSection';
 
@@ -78,6 +79,9 @@ export default function Home() {
 
       {/* ─── Brand GIF Showcase Section ─── */}
       <BrandGifSection />
+
+      {/* ─── Our Services Section (Creative non-card layout) ─── */}
+      <ServicesSection />
 
       {/* ─── Section 4 (Testimonials) ─── */}
       <TestimonialsSection />

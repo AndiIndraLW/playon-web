@@ -126,8 +126,9 @@
 }
 
 .closeBtn:hover {
-  border-color: var(--color-brand-white);
-  background-color: rgba(245, 245, 243, 0.1);
+  border-color: #F7B32B;
+  background-color: #F7B32B;
+  color: #000000;
 }
 
 .closeIcon {
@@ -148,6 +149,62 @@
 }
 .closeIcon::before { transform: translateY(-50%) rotate(45deg); }
 .closeIcon::after  { transform: translateY(-50%) rotate(-45deg); }
+
+/* ---------- Menu main body (2 columns on desktop) ---------- */
+.menuMainBody {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(2rem, 4vw, 5rem);
+  flex: 1;
+  width: 100%;
+}
+
+.navContainer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Hover Image Preview Panel (desktop visual reveal) */
+.imagePreviewPanel {
+  position: relative;
+  width: clamp(600px, 52vw, 1000px);
+  aspect-ratio: 16 / 10;
+  border-radius: 2rem;
+  overflow: hidden;
+  border: 1.5px solid rgba(242, 242, 242, 0.15);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95);
+  background-color: #080808;
+  opacity: 0;
+  transform: scale(0.92) translateX(1rem);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.imagePreviewPanel.visible {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+}
+
+.previewImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.previewImg.activeImg {
+  opacity: 1;
+  transform: scale(1);
+}
 
 /* ---------- Nav link list ---------- */
 .navList {
@@ -329,7 +386,11 @@
 .socialLink:hover { color: var(--color-brand-white); }
 
 /* ---------- Responsive ---------- */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
+  .imagePreviewPanel {
+    display: none !important;
+  }
+
   .navLink {
     font-size: clamp(2.25rem, 11vw, 4rem);
   }

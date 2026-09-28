@@ -1,0 +1,231 @@
+/* ============================================================
+   ServicesSection.module.css — Creative Non-Card Service Showcase
+   Palette: Racing Red: #F72C25 | Sunflower Gold: #F7B32B
+   Malachite: #22D760 | Powder Petal: #FEE8DC | White Smoke: #F2F2F2 | Black: #000000
+   ============================================================ */
+
+.section {
+  position: relative;
+  width: 100%;
+  padding: clamp(5rem, 12vh, 9rem) 0;
+  background-color: #000000;
+  color: #F2F2F2;
+  border-top: 1px solid rgba(242, 242, 242, 0.08);
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  padding: 0 clamp(1.5rem, 4vw, 5rem);
+}
+
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(3rem, 6vh, 5rem);
+}
+
+.headerTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #F2F2F2;
+  margin: 0;
+}
+
+.headerSubtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.1vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #22D760; /* Malachite */
+}
+
+/* ─── Services List (No Cards!) ─── */
+.servicesList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-top: 1px solid rgba(242, 242, 242, 0.15);
+}
+
+.serviceItem {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(242, 242, 242, 0.12);
+  cursor: pointer;
+  transition: background-color 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.serviceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1.75rem, 3.5vh, 2.75rem) 0;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.serviceMainInfo {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3.5rem);
+  flex: 1;
+}
+
+.serviceNum {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 600;
+  color: rgba(242, 242, 242, 0.4);
+  transition: color 0.35s ease, transform 0.35s ease;
+  min-width: 2ch;
+}
+
+.serviceItem.active .serviceNum,
+.serviceItem:hover .serviceNum {
+  color: #22D760; /* Malachite */
+  transform: translateX(4px);
+}
+
+.serviceTitle {
+  font-family: var(--font-body);
+  font-size: clamp(1.35rem, 2.8vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #F2F2F2;
+  margin: 0;
+  transition: color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.serviceItem.active .serviceTitle,
+.serviceItem:hover .serviceTitle {
+  color: #22D760; /* Malachite */
+  transform: translateX(0.5rem);
+}
+
+.serviceRight {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.serviceTags {
+  font-family: var(--font-body);
+  font-size: clamp(0.8125rem, 1.05vw, 0.95rem);
+  font-weight: 400;
+  color: rgba(254, 232, 220, 0.6);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.arrowIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke-width: 2;
+  color: rgba(242, 242, 242, 0.4);
+  transition: transform 0.4s ease, color 0.35s ease;
+  flex-shrink: 0;
+}
+
+.serviceItem.active .arrowIcon,
+.serviceItem:hover .arrowIcon {
+  color: #22D760; /* Malachite */
+  transform: rotate(45deg);
+}
+
+/* ─── Expandable Image Ribbon (Creative reveal) ─── */
+.imageRibbonWrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1), padding 0.5s ease;
+  padding: 0;
+}
+
+.serviceItem.active .imageRibbonWrapper {
+  grid-template-rows: 1fr;
+  padding-bottom: clamp(1.75rem, 3vh, 2.5rem);
+}
+
+.imageRibbonInner {
+  overflow: hidden;
+}
+
+.imageRibbonContent {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: center;
+}
+
+.serviceImageContainer {
+  width: 100%;
+  max-width: 680px;
+  height: clamp(220px, 28vh, 360px);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+.serviceImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.serviceItem.active .serviceImage {
+  transform: scale(1.04);
+}
+
+.serviceDescription {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(242, 242, 242, 0.75);
+  max-width: 48ch;
+}
+
+@media (max-width: 900px) {
+  .serviceTags {
+    display: none;
+  }
+
+  .arrowIcon {
+    display: none;
+  }
+
+  /* Keep all service dropdowns open on mobile */
+  .imageRibbonWrapper {
+    grid-template-rows: 1fr;
+    padding-bottom: clamp(1.5rem, 3vh, 2.25rem);
+  }
+
+  .imageRibbonContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .serviceImageContainer {
+    max-width: 100%;
+    height: clamp(200px, 30vh, 300px);
+  }
+}

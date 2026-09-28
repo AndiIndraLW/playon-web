@@ -60,10 +60,11 @@
 }
 
 .navBtn:hover:not(:disabled) {
-  background: #22D760; /* Malachite */
+  background: #F7B32B; /* Sunflower Gold */
   color: #000000;
-  border-color: #22D760;
+  border-color: #F7B32B;
   transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(247, 179, 43, 0.4);
 }
 
 .navBtn:disabled {
@@ -213,12 +214,12 @@
 }
 
 .articleCard:hover .learnMoreBtn {
-  color: #22D760; /* Malachite */
+  color: #F7B32B; /* Sunflower Gold */
 }
 
 .articleCard:hover .learnMoreBtnIcon {
   transform: translateX(4px);
-  color: #22D760; /* Malachite */
+  color: #F7B32B; /* Sunflower Gold */
 }
 
 @media (max-width: 1024px) {

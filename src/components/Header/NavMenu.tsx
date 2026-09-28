@@ -10,29 +10,19 @@ interface NavMenuProps {
 }
 
 const navLinks = [
-  { href: '/',             label: 'Home',         num: '01' },
-  { href: '/services',     label: 'Our Services',  num: '02' },
-  { href: '/works',        label: 'Works',         num: '03' },
-  { href: '/about',        label: 'About Us',      num: '04' },
-  { href: '/blog',         label: 'Blog',          num: '05' },
+  { href: '/',             label: 'Home',         num: '01', image: '/assets/dummyimghl/dummyimghl1.jpeg' },
+  { href: '/services',     label: 'Our Services',  num: '02', image: '/assets/dummyimghl/dummyimghl2.jpg' },
+  { href: '/works',        label: 'Works',         num: '03', image: '/assets/dummyimghl/dummyimghl3.jpg' },
+  { href: '/about',        label: 'About Us',      num: '04', image: '/assets/dummyimghl/dummyimghl4.jpg' },
+  { href: '/blog',         label: 'Blog',          num: '05', image: '/assets/dummyimghl/dummyimghl5.jpg' },
 ];
 
 export default function NavMenu({ isOpen, onClose }: NavMenuProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const closingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /**
-   * `entered` tracks whether the open-entry animation has been triggered.
-   *
-   * Problem: when the component mounts with isOpen=true the browser assigns
-   * the final `.isOpen` styles in the same paint frame, so it never sees a
-   * "before" state and skips the transition entirely.
-   *
-   * Fix: render without any animation class first (panels stay at
-   * translateX(100%)), then apply `.isOpen` one double-rAF later so the
-   * browser sees a genuine style change and runs the transition.
-   */
   const [entered, setEntered] = useState(false);
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -49,6 +39,7 @@ export default function NavMenu({ isOpen, onClose }: NavMenuProps) {
     } else {
       // Reset for next open cycle
       setEntered(false);
+      setHoveredImage(null);
     }
   }, [isOpen]);
 
@@ -85,9 +76,6 @@ export default function NavMenu({ isOpen, onClose }: NavMenuProps) {
   }, [onClose]);
 
   // Determine CSS state class:
-  //  - isOpen=true  + entered=false → no extra class (panels sit off-screen at translateX(100%))
-  //  - isOpen=true  + entered=true  → .isOpen   → panels animate IN
-  //  - isOpen=false (component still mounted for exit) → .isClosing → panels animate OUT
   const stateClass = !isOpen
     ? styles.isClosing          // genuine close → trigger exit animation
     : entered
@@ -122,26 +110,45 @@ export default function NavMenu({ isOpen, onClose }: NavMenuProps) {
 
         {/* Menu content */}
         <div className={styles.menuContent}>
-          <nav aria-label="Main navigation">
-            <ul className={styles.navList}>
-              {navLinks.map(({ href, label, num }) => (
-                <li key={href} className={styles.navItem}>
-                  <div className={styles.navItemInner}>
-                    <Link
-                      href={href}
-                      className={styles.navLink}
-                      onClick={handleLinkClick}
-                    >
-                      <span className={styles.navLinkNum} aria-hidden="true">
-                        {num}
-                      </span>
-                      {label}
-                    </Link>
-                  </div>
-                </li>
+          <div className={styles.menuMainBody}>
+            <nav aria-label="Main navigation" className={styles.navContainer}>
+              <ul className={styles.navList}>
+                {navLinks.map(({ href, label, num, image }) => (
+                  <li
+                    key={href}
+                    className={styles.navItem}
+                    onMouseEnter={() => setHoveredImage(image)}
+                    onMouseLeave={() => setHoveredImage(null)}
+                  >
+                    <div className={styles.navItemInner}>
+                      <Link
+                        href={href}
+                        className={styles.navLink}
+                        onClick={handleLinkClick}
+                      >
+                        <span className={styles.navLinkNum} aria-hidden="true">
+                          {num}
+                        </span>
+                        {label}
+                      </Link>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Hover Image Preview Panel (Desktop only) */}
+            <div className={`${styles.imagePreviewPanel} ${hoveredImage ? styles.visible : ''}`}>
+              {navLinks.map(({ href, image, label }) => (
+                <img
+                  key={href}
+                  src={image}
+                  alt={label}
+                  className={`${styles.previewImg} ${hoveredImage === image ? styles.activeImg : ''}`}
+                />
               ))}
-            </ul>
-          </nav>
+            </div>
+          </div>
 
           {/* Footer row */}
           <footer className={styles.menuFooter}>

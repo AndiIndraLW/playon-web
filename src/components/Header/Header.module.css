@@ -126,7 +126,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-color: #F2F2F2;
+  background-color: #F7B32B; /* Sunflower Gold */
   transform: translateY(101%);
   transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
   border-radius: inherit;
@@ -138,7 +138,7 @@
 }
 
 .ctaBtn:hover {
-  border-color: #F2F2F2;
+  border-color: #F7B32B;
   color: #000000;
 }
 
@@ -189,13 +189,15 @@
 }
 
 .header.menuOpen .menuBtn:hover {
-  border-color: rgba(242, 242, 242, 0.7);
-  background-color: rgba(242, 242, 242, 0.08);
+  border-color: #F7B32B;
+  background-color: #F7B32B;
+  color: #000000;
 }
 
 .menuBtn:hover {
-  background-color: rgba(242, 242, 242, 0.15);
-  border-color: rgba(242, 242, 242, 0.7);
+  background-color: #F7B32B;
+  border-color: #F7B32B;
+  color: #000000;
 }
 
 /* Hamburger icon */
