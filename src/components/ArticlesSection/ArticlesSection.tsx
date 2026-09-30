@@ -1,18 +1,19 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import styles from './ArticlesSection.module.css';
+import { fetchApi, getMediaUrl } from '@/lib/api';
 
 interface ArticleItem {
-  id: number;
+  id: number | string;
   title: string;
   description: string;
   image: string;
   link: string;
 }
 
-const articlesData: ArticleItem[] = [
+const fallbackArticles: ArticleItem[] = [
   {
     id: 1,
     title: 'The Future of Competitive Gaming Broadcasts',
@@ -37,34 +38,28 @@ const articlesData: ArticleItem[] = [
     image: '/assets/dummyimghl/dummyimghl3.jpg',
     link: '/articles/next-gen-motion-graphics',
   },
-  {
-    id: 4,
-    title: 'Interactive Sound & Visual Production Techniques',
-    description:
-      'How spatial audio algorithms and reactive visual shaders create visceral, heart-pounding moments during live gaming broadcasts.',
-    image: '/assets/dummyimghl/dummyimghl4.jpg',
-    link: '/articles/interactive-sound-and-visuals',
-  },
-  {
-    id: 5,
-    title: 'Mastering Virtual Production for Live Events',
-    description:
-      'Unlocking the potential of virtual sets and realtime rendering to deliver cinematic quality without the overhead of physical staging.',
-    image: '/assets/dummyimghl/dummyimghl5.jpg',
-    link: '/articles/mastering-virtual-production',
-  },
-  {
-    id: 6,
-    title: 'Designing for the Next Billion Esports Fans',
-    description:
-      'An exploration of cross-platform storytelling, mobile-first live streams, and interactive community engagement strategies.',
-    image: '/assets/dummyimghl/dummyimghl6.jpg',
-    link: '/articles/designing-for-esports-fans',
-  },
 ];
 
 export default function ArticlesSection() {
+  const [articles, setArticles] = useState<ArticleItem[]>(fallbackArticles);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    async function loadArticles() {
+      const res = await fetchApi<{ data: any[] }>('/articles');
+      if (res?.data && res.data.length > 0) {
+        const mapped: ArticleItem[] = res.data.map((item, idx) => ({
+          id: item.id || idx + 1,
+          title: item.title,
+          description: item.sub_title || (item.description ? item.description.replace(/<[^>]*>?/gm, '') : ''),
+          image: getMediaUrl(item.featured_image, '/assets/dummyimghl/dummyimghl1.jpeg'),
+          link: item.slug ? `/articles/${item.slug}` : '#',
+        }));
+        setArticles(mapped);
+      }
+    }
+    loadArticles();
+  }, []);
 
   const scrollLeft = () => {
     if (trackRef.current) {
@@ -125,12 +120,12 @@ export default function ArticlesSection() {
           </div>
         </div>
 
-        {/* Slidable carousel container — strictly 3 articles visible */}
+        {/* Slidable carousel container */}
         <div className={styles.sliderContainer}>
           <div className={styles.sliderTrack} ref={trackRef}>
-            {articlesData.map((article) => (
+            {articles.map((article) => (
               <article key={article.id} className={styles.articleCard}>
-                {/* Image at the top — enlarged aspect ratio */}
+                {/* Image at the top */}
                 <div className={styles.imageWrapper}>
                   <img
                     src={article.image}
@@ -140,7 +135,7 @@ export default function ArticlesSection() {
                   />
                 </div>
 
-                {/* Content below image: unboxed title, description, and Learn More button */}
+                {/* Content below image */}
                 <div className={styles.articleBody}>
                   <div className={styles.contentGroup}>
                     <h3 className={styles.articleTitle} title={article.title}>

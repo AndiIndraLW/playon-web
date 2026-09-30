@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styles from './RecentProjectsSection.module.css';
+import { fetchApi, getMediaUrl } from '@/lib/api';
 
 interface ProjectItem {
-  id: string;
+  id: string | number;
   title: string;
   category: string;
   year: string;
@@ -12,7 +13,7 @@ interface ProjectItem {
   link?: string;
 }
 
-const allProjects: ProjectItem[] = [
+const fallbackProjects: ProjectItem[] = [
   {
     id: '01',
     title: 'Valhalla World Series 2026',
@@ -48,45 +49,42 @@ const allProjects: ProjectItem[] = [
     year: '2025',
     image: '/assets/dummyimghl/dummyimghl5.jpg',
   },
-  // Extra projects revealed on "Load More"
-  {
-    id: '06',
-    title: 'Cyber Circuit Masters',
-    category: 'Tournament & Branding',
-    year: '2025',
-    image: '/assets/dummyimghl/dummyimghl6.jpg',
-  },
-  {
-    id: '07',
-    title: 'Nebula Protocol Reveal',
-    category: 'CGI & Cinematic Trailer',
-    year: '2025',
-    image: '/assets/dummyimghl/dummyimghl1.jpeg',
-  },
-  {
-    id: '08',
-    title: 'Titan League Grand Finals',
-    category: 'Arena Production & Broadcast',
-    year: '2024',
-    image: '/assets/dummyimghl/dummyimghl2.jpg',
-  },
 ];
 
 export default function RecentProjectsSection() {
+  const [projects, setProjects] = useState<ProjectItem[]>(fallbackProjects);
   const [visibleCount, setVisibleCount] = useState(5);
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    async function loadProjects() {
+      const res = await fetchApi<{ data: any[] }>('/projects');
+      if (res?.data && res.data.length > 0) {
+        const mapped: ProjectItem[] = res.data.map((item, idx) => ({
+          id: item.id || idx + 1,
+          title: item.title,
+          category: item.sub_title || (Array.isArray(item.tag) ? item.tag.join(' • ') : item.tag || 'Project'),
+          year: String(item.year || ''),
+          image: getMediaUrl(item.featured_image, '/assets/dummyimghl/dummyimghl1.jpeg'),
+          link: item.slug ? `/projects/${item.slug}` : '#',
+        }));
+        setProjects(mapped);
+      }
+    }
+    loadProjects();
+  }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY });
   }, []);
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => Math.min(prev + 3, allProjects.length));
+    setVisibleCount((prev) => Math.min(prev + 3, projects.length));
   };
 
-  const visibleProjects = allProjects.slice(0, visibleCount);
-  const hasMore = visibleCount < allProjects.length;
+  const visibleProjects = projects.slice(0, visibleCount);
+  const hasMore = visibleCount < projects.length;
 
   return (
     <section className={styles.section} id="recent-projects">

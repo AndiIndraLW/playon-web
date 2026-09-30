@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ServicesSection.module.css';
+import { fetchApi, getMediaUrl } from '@/lib/api';
 
 interface Service {
   id: string;
@@ -12,7 +13,7 @@ interface Service {
   image: string;
 }
 
-const servicesData: Service[] = [
+const fallbackServices: Service[] = [
   {
     id: '01',
     num: '01',
@@ -61,7 +62,32 @@ const servicesData: Service[] = [
 ];
 
 export default function ServicesSection() {
+  const [services, setServices] = useState<Service[]>(fallbackServices);
   const [activeId, setActiveId] = useState<string>('01');
+
+  useEffect(() => {
+    async function loadServices() {
+      const res = await fetchApi<{ data: any[] }>('/services');
+      if (res?.data && res.data.length > 0) {
+        const mapped: Service[] = res.data.map((item, idx) => {
+          const numStr = String(idx + 1).padStart(2, '0');
+          return {
+            id: numStr,
+            num: numStr,
+            title: item.title,
+            tags: item.sub_title || 'Service',
+            description: item.description?.replace(/<[^>]*>?/gm, '') || '',
+            image: getMediaUrl(item.featured_image, '/assets/dummyimghl/dummyimghl1.jpeg'),
+          };
+        });
+        setServices(mapped);
+        if (mapped.length > 0) {
+          setActiveId(mapped[0].id);
+        }
+      }
+    }
+    loadServices();
+  }, []);
 
   const toggleService = (id: string) => {
     setActiveId((prev) => (prev === id ? '' : id));
@@ -75,9 +101,9 @@ export default function ServicesSection() {
           <h2 className={styles.headerTitle}>Our Services</h2>
         </div>
 
-        {/* Services List (Non-card layout with expandable image ribbons) */}
+        {/* Services List */}
         <div className={styles.servicesList}>
-          {servicesData.map((service) => {
+          {services.map((service) => {
             const isActive = activeId === service.id;
             return (
               <div

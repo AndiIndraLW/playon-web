@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './TestimonialsSection.module.css';
+import { fetchApi } from '@/lib/api';
 
 interface Testimonial {
   id: number;
@@ -10,7 +11,7 @@ interface Testimonial {
   testimony: string;
 }
 
-const testimonials: Testimonial[] = [
+const fallbackTestimonials: Testimonial[] = [
   {
     id: 1,
     name: 'Marcus Vance',
@@ -32,34 +33,39 @@ const testimonials: Testimonial[] = [
     testimony:
       '“Working with PlayOn is effortless yet extraordinary. They understand youth culture and high-octane gaming aesthetics better than anyone in the industry. The results spoke for themselves—our campaign engagement skyrocketed across all platforms.”',
   },
-  {
-    id: 4,
-    name: 'Sarah Jenkins',
-    company: 'Brand Partnerships Lead, Nike Training & Esports',
-    testimony:
-      '“The energy, responsiveness, and cutting-edge visual design PlayOn delivered for our seasonal launch was world-class. They didn’t just execute our brief; they elevated our vision into a cultural moment that resonated worldwide.”',
-  },
-  {
-    id: 5,
-    name: 'Kenji Takahashi',
-    company: 'Head of Production, PlayStation Global Studios',
-    testimony:
-      '“PlayOn’s team possesses a rare combination of technical mastery and artistic boldness. They transformed our broadcast assets and arena visuals into a breathtaking spectacle that captivated millions of viewers globally.”',
-  },
 ];
 
 export default function TestimonialsSection() {
+  const [testimonialsList, setTestimonialsList] = useState<Testimonial[]>(fallbackTestimonials);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  useEffect(() => {
+    async function loadTestimonials() {
+      const res = await fetchApi<{ data: any[] }>('/testimonials');
+      if (res?.data && res.data.length > 0) {
+        const mapped: Testimonial[] = res.data.map((item, idx) => ({
+          id: item.id || idx + 1,
+          name: item.name,
+          company: item.title || '',
+          testimony: item.testimony,
+        }));
+        setTestimonialsList(mapped);
+      }
+    }
+    loadTestimonials();
+  }, []);
+
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? testimonialsList.length - 1 : prev - 1));
   };
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === testimonialsList.length - 1 ? 0 : prev + 1));
   };
 
-  const currentTestimonial = testimonials[currentIndex];
+  const currentTestimonial = testimonialsList[currentIndex] || testimonialsList[0];
+
+  if (!currentTestimonial) return null;
 
   return (
     <section className={styles.section} id="testimonials">
@@ -129,7 +135,7 @@ export default function TestimonialsSection() {
 
         {/* Pagination indicator dots */}
         <div className={styles.dotsWrapper}>
-          {testimonials.map((item, idx) => (
+          {testimonialsList.map((item, idx) => (
             <button
               key={item.id}
               onClick={() => setCurrentIndex(idx)}
