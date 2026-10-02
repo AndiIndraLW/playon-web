@@ -163,3 +163,22 @@
     transform: translateX(-50%);
   }
 }
+
+.logoImg {
+  max-height: clamp(20px, 3vh, 32px);
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) opacity(0.75);
+  transition: filter 0.35s ease, opacity 0.35s ease;
+}
+
+.logoItem:hover .logoImg {
+  filter: brightness(0) invert(1) opacity(1);
+}
+
+@media (max-width: 640px) {
+  .logoImg {
+    max-height: 22px;
+  }
+}

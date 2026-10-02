@@ -7,6 +7,7 @@ import { fetchApi, getMediaUrl } from '@/lib/api';
 interface Service {
   id: string;
   num: string;
+  slug: string;
   title: string;
   tags: string;
   description: string;
@@ -17,6 +18,7 @@ const fallbackServices: Service[] = [
   {
     id: '01',
     num: '01',
+    slug: 'e-sports-arena-broadcast',
     title: 'E-Sports & Arena Broadcast',
     tags: 'Live Production • Arena Visuals • Real-time Graphics',
     description:
@@ -26,6 +28,7 @@ const fallbackServices: Service[] = [
   {
     id: '02',
     num: '02',
+    slug: 'brand-experiences-motion',
     title: 'Brand Experiences & Motion',
     tags: 'Visual Identity • Kinetic Typography • 3D Motion',
     description:
@@ -35,6 +38,7 @@ const fallbackServices: Service[] = [
   {
     id: '03',
     num: '03',
+    slug: '3d-stage-vfx-animation',
     title: '3D Stage & VFX Animation',
     tags: 'Unreal Engine • Projection Mapping • Virtual Sets',
     description:
@@ -44,6 +48,7 @@ const fallbackServices: Service[] = [
   {
     id: '04',
     num: '04',
+    slug: 'interactive-web-audio',
     title: 'Interactive Web & Audio',
     tags: 'WebGL Experiences • Spatial Sound • Digital Products',
     description:
@@ -53,6 +58,7 @@ const fallbackServices: Service[] = [
   {
     id: '05',
     num: '05',
+    slug: 'global-tournament-branding',
     title: 'Global Tournament Branding',
     tags: 'Broadcast Package • Trophy Ceremonies • Event Design',
     description:
@@ -71,13 +77,15 @@ export default function ServicesSection() {
       if (res?.data && res.data.length > 0) {
         const mapped: Service[] = res.data.map((item, idx) => {
           const numStr = String(idx + 1).padStart(2, '0');
+          const fallback = fallbackServices[idx % fallbackServices.length];
           return {
             id: numStr,
             num: numStr,
+            slug: item.slug || fallback.slug,
             title: item.title,
             tags: item.sub_title || 'Service',
             description: item.description?.replace(/<[^>]*>?/gm, '') || '',
-            image: getMediaUrl(item.featured_image, '/assets/dummyimghl/dummyimghl1.jpeg'),
+            image: getMediaUrl(item.featured_image, fallback.image),
           };
         });
         setServices(mapped);
@@ -116,23 +124,29 @@ export default function ServicesSection() {
                 <div className={styles.serviceHeader}>
                   <div className={styles.serviceMainInfo}>
                     <span className={styles.serviceNum}>{service.num}</span>
-                    <h3 className={styles.serviceTitle}>{service.title}</h3>
+                    <h3 className={styles.serviceTitle}>
+                      <a href={`/services/${service.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                        {service.title}
+                      </a>
+                    </h3>
                   </div>
 
                   <div className={styles.serviceRight}>
                     <span className={styles.serviceTags}>{service.tags}</span>
-                    <svg
-                      className={styles.arrowIcon}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
-                    </svg>
+                    <a href={`/services/${service.slug}`} aria-label={`View details for ${service.title}`}>
+                      <svg
+                        className={styles.arrowIcon}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                      </svg>
+                    </a>
                   </div>
                 </div>
 
@@ -147,9 +161,27 @@ export default function ServicesSection() {
                           className={styles.serviceImage}
                         />
                       </div>
-                      <p className={styles.serviceDescription}>
-                        {service.description}
-                      </p>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <p className={styles.serviceDescription}>
+                          {service.description}
+                        </p>
+                        <a
+                          href={`/services/${service.slug}`}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            color: 'var(--color-malachite)',
+                            fontWeight: 600,
+                            fontSize: '0.85rem',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em',
+                            width: 'fit-content'
+                          }}
+                        >
+                          Explore Service Details →
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>

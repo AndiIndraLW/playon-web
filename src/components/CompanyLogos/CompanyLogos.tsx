@@ -1,12 +1,20 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import styles from './CompanyLogos.module.css';
+import { fetchApi, getMediaUrl } from '@/lib/api';
+
+interface HomepageSettingsData {
+  company_logos?: string[] | null;
+}
 
 interface Company {
   name: string;
-  svg: React.ReactNode;
+  logoUrl?: string;
+  svg?: React.ReactNode;
 }
 
-const companies: Company[] = [
+const defaultCompanies: Company[] = [
   {
     name: 'Nike',
     svg: (
@@ -60,18 +68,49 @@ const companies: Company[] = [
 
 interface CompanyLogosProps {
   label?: string;
+  companyLogos?: string[] | null;
 }
 
-export default function CompanyLogos({ label = "Trusted by industry leaders" }: CompanyLogosProps) {
+export default function CompanyLogos({ label = "Trusted by industry leaders", companyLogos }: CompanyLogosProps) {
+  const [companies, setCompanies] = useState<Company[]>(defaultCompanies);
+
+  useEffect(() => {
+    function processLogos(logos?: string[] | null) {
+      if (logos && Array.isArray(logos) && logos.length > 0) {
+        const dynamicCompanies: Company[] = logos.map((logoPath, idx) => ({
+          name: `Client ${idx + 1}`,
+          logoUrl: getMediaUrl(logoPath),
+        }));
+        setCompanies(dynamicCompanies);
+      }
+    }
+
+    if (companyLogos !== undefined) {
+      processLogos(companyLogos);
+    } else {
+      async function loadHomepageLogos() {
+        const res = await fetchApi<{ data: HomepageSettingsData | null }>('/homepage-settings');
+        if (res?.data?.company_logos) {
+          processLogos(res.data.company_logos);
+        }
+      }
+      loadHomepageLogos();
+    }
+  }, [companyLogos]);
+
   return (
     <div className={styles.container}>
       <h2 className={styles.label}>{label}</h2>
-      
+
       {/* Desktop static layout */}
       <div className={`${styles.logoList} ${styles.desktopOnly}`}>
-        {companies.map((company) => (
-          <div key={company.name} className={styles.logoItem} title={company.name} aria-label={company.name}>
-            {company.svg}
+        {companies.map((company, index) => (
+          <div key={`${company.name}-${index}`} className={styles.logoItem} title={company.name} aria-label={company.name}>
+            {company.logoUrl ? (
+              <img src={company.logoUrl} alt={company.name} className={styles.logoImg} />
+            ) : (
+              company.svg
+            )}
           </div>
         ))}
       </div>
@@ -81,7 +120,11 @@ export default function CompanyLogos({ label = "Trusted by industry leaders" }: 
         <div className={styles.marqueeTrack}>
           {companies.concat(companies).map((company, index) => (
             <div key={`${company.name}-${index}`} className={styles.logoItem} title={company.name} aria-label={company.name}>
-              {company.svg}
+              {company.logoUrl ? (
+                <img src={company.logoUrl} alt={company.name} className={styles.logoImg} />
+              ) : (
+                company.svg
+              )}
             </div>
           ))}
         </div>

@@ -13,6 +13,7 @@ import { fetchApi, getMediaUrl } from '@/lib/api';
 interface HomepageSettingsData {
   hero_bg_video?: string | null;
   hero_title?: string | null;
+  company_logos?: string[] | null;
   section_1_text?: string | null;
   section_1_button_text?: string | null;
   section_1_button_link?: string | null;
@@ -58,7 +59,10 @@ export default async function Home() {
           </div>
 
           {/* Company showcase at bottom of hero */}
-          <CompanyLogos label="Trusted by industry leaders worldwide" />
+          <CompanyLogos
+            label="Trusted by industry leaders worldwide"
+            companyLogos={settings?.company_logos}
+          />
         </div>
       </main>
 
