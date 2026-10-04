@@ -361,26 +361,12 @@
 
 .subServiceItem:hover {
   color: var(--color-brand-white);
-  background: rgba(34, 215, 96, 0.12);
+  background: transparent;
   transform: translateX(6px);
 }
 
 .subServiceTitle {
   flex: 1;
-}
-
-.subServiceArrow {
-  width: 16px;
-  height: 16px;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: all 0.25s ease;
-  color: var(--color-brand-accent);
-}
-
-.subServiceItem:hover .subServiceArrow {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 

@@ -43,10 +43,11 @@
 }
 
 .arrowBtn:hover:not(:disabled) {
-  background: var(--color-malachite);
+  background: var(--color-sunflower-gold);
   color: var(--color-black);
-  border-color: var(--color-malachite);
+  border-color: var(--color-sunflower-gold);
   transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(247, 179, 43, 0.4);
 }
 
 .arrowBtn:disabled {

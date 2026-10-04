@@ -165,9 +165,13 @@ a {
   text-decoration: none;
 }
 
-button {
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"] {
   cursor:             pointer;
-  font:               inherit;
+  font-family:        var(--font-body);
   color:              inherit;
   background:         none;
   border:             none;

@@ -20,6 +20,7 @@ const fallbackProjects: ProjectItem[] = [
     category: 'E-Sports & Live Event',
     year: '2026',
     image: '/assets/dummyimghl/dummyimghl1.jpeg',
+    link: '/works/valhalla-world-series-2026',
   },
   {
     id: '02',
@@ -27,6 +28,7 @@ const fallbackProjects: ProjectItem[] = [
     category: 'Brand Experience & Motion',
     year: '2026',
     image: '/assets/dummyimghl/dummyimghl2.jpg',
+    link: '/works/hyperion-genesis-campaign',
   },
   {
     id: '03',
@@ -34,6 +36,7 @@ const fallbackProjects: ProjectItem[] = [
     category: '3D VFX & Stage Broadcast',
     year: '2025',
     image: '/assets/dummyimghl/dummyimghl3.jpg',
+    link: '/works/astral-rift-championship',
   },
   {
     id: '04',
@@ -41,6 +44,7 @@ const fallbackProjects: ProjectItem[] = [
     category: 'Interactive Web & Sound',
     year: '2025',
     image: '/assets/dummyimghl/dummyimghl4.jpg',
+    link: '/works/spectra-engine-launch',
   },
   {
     id: '05',
@@ -48,6 +52,7 @@ const fallbackProjects: ProjectItem[] = [
     category: 'Global Gaming Broadcast',
     year: '2025',
     image: '/assets/dummyimghl/dummyimghl5.jpg',
+    link: '/works/apex-dynasty-invitational',
   },
 ];
 
@@ -67,7 +72,7 @@ export default function RecentProjectsSection() {
           category: item.sub_title || (Array.isArray(item.tag) ? item.tag.join(' • ') : item.tag || 'Project'),
           year: String(item.year || ''),
           image: getMediaUrl(item.featured_image, '/assets/dummyimghl/dummyimghl1.jpeg'),
-          link: item.slug ? `/projects/${item.slug}` : '#',
+          link: item.slug ? `/works/${item.slug}` : '/works',
         }));
         setProjects(mapped);
       }

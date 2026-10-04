@@ -709,7 +709,7 @@
   padding: 1.25rem 3rem;
   background: #22D760;
   color: #000000;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -720,10 +720,10 @@
 }
 
 .ctaBtn:hover {
-  background: #ffffff;
+  background: var(--color-sunflower-gold);
   color: #000000;
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 45px rgba(255,255,255,0.3);
+  box-shadow: 0 12px 45px rgba(247, 179, 43, 0.4);
 }
 
 /* ============================================================

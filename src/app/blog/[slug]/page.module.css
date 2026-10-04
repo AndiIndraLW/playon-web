@@ -1,0 +1,421 @@
+/* ==========================================================================
+   BLOG ARTICLE PAGE — PlayOn Design System
+   ========================================================================== */
+
+.page {
+  background: #000000;
+  color: #F2F2F2;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 5rem);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 70svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.heroImageWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroImageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 8rem 0 clamp(3rem, 6vh, 5rem);
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #F2F2F2;
+  margin: 0 0 1.25rem;
+  max-width: 900px;
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.65;
+  color: rgba(242, 242, 242, 0.7);
+  margin: 0;
+  max-width: 700px;
+}
+
+/* ============================================================
+   ARTICLE LAYOUT
+   ============================================================ */
+.articleMain {
+  padding: clamp(4rem, 8vh, 6rem) 0 clamp(4rem, 8vh, 6rem);
+}
+
+.articleLayout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: clamp(3rem, 5vw, 5rem);
+  align-items: start;
+}
+
+/* ── Rich content ── */
+.articleBody {
+  min-width: 0;
+}
+
+.richContent {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.75;
+  color: rgba(242, 242, 242, 0.82);
+}
+
+.richContent h1,
+.richContent h2,
+.richContent h3,
+.richContent h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: #F2F2F2;
+  margin: 2.5rem 0 1rem;
+  line-height: 1.05;
+}
+
+.richContent h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+.richContent h3 { font-size: clamp(1.25rem, 2vw, 2rem); }
+.richContent h4 { font-size: clamp(1rem, 1.5vw, 1.5rem); }
+
+.richContent p {
+  margin: 0 0 1.5rem;
+}
+
+.richContent a {
+  color: #22D760;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.25s ease;
+}
+
+.richContent a:hover {
+  color: #F7B32B;
+}
+
+.richContent ul,
+.richContent ol {
+  margin: 0 0 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.richContent li {
+  margin-bottom: 0.5rem;
+}
+
+.richContent blockquote {
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  border-left: 3px solid #22D760;
+  background: rgba(34, 215, 96, 0.04);
+  font-style: italic;
+  color: rgba(242, 242, 242, 0.75);
+}
+
+.richContent img {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.richContent strong { color: #F2F2F2; }
+
+.richContent code {
+  background: rgba(242, 242, 242, 0.1);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+}
+
+.richContent pre {
+  background: #0a0a0a;
+  border: 1px solid rgba(242, 242, 242, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.noContent {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  color: rgba(242, 242, 242, 0.4);
+  font-style: italic;
+}
+
+/* ── Gallery ── */
+.gallery {
+  margin-top: clamp(3rem, 6vh, 5rem);
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(242, 242, 242, 0.1);
+}
+
+.galleryTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: #F2F2F2;
+  margin: 0 0 1.5rem;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.galleryItem {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.875rem;
+  border: 1.5px solid rgba(242, 242, 242, 0.1);
+  background: #0a0a0a;
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.galleryItem:hover .galleryImage {
+  transform: scale(1.05);
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebarCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebarLabel {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.4);
+  margin: 0;
+}
+
+.sidebarValue {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #F2F2F2;
+  margin: 0;
+}
+
+.sidebarDivider {
+  height: 1px;
+  background: rgba(242, 242, 242, 0.1);
+}
+
+.sidebarBackBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.4);
+  text-decoration: none;
+  transition: color 0.25s ease;
+  margin-top: 0.5rem;
+}
+
+.sidebarBackBtn:hover {
+  color: #F7B32B;
+}
+
+/* ============================================================
+   CTA SECTION
+   ============================================================ */
+.ctaSection {
+  padding: clamp(4rem, 10vh, 8rem) 0;
+  background: #080808;
+  border-top: 1px solid rgba(242, 242, 242, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 80% at 30% 50%,
+    rgba(34, 215, 96, 0.05) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.ctaInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.ctaEyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #22D760;
+  margin: 0;
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #F2F2F2;
+  margin: 0;
+  max-width: 700px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1.1rem 2.25rem;
+  background: #22D760;
+  color: #000;
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 100px;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.ctaBtn:hover {
+  background: #F7B32B;
+  transform: translateX(4px);
+  box-shadow: 0 8px 28px rgba(247, 179, 43, 0.35);
+}
+
+.ctaBtnIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.ctaBtn:hover .ctaBtnIcon {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .articleLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(242, 242, 242, 0.1);
+  }
+
+  .sidebarCard {
+    min-width: 140px;
+  }
+
+  .sidebarDivider {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 60svh;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTitle {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+}

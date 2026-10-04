@@ -1,5 +1,6 @@
 /* ==========================================================================
    SINGLE SERVICE DETAIL PAGE — STYLES
+   Inspired by staggered editorial layout (refsubservices.png)
    ========================================================================== */
 
 .page {
@@ -7,7 +8,7 @@
   background-color: var(--color-black);
   color: var(--color-white-smoke);
   overflow-x: hidden;
-  padding-bottom: 5rem;
+  padding-bottom: 6rem;
 }
 
 /* ── Hero Header ── */
@@ -20,39 +21,12 @@
   gap: 2rem;
 }
 
-.backLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  transition: color 0.25s ease, transform 0.25s ease;
-  width: fit-content;
-}
-
-.backLink:hover {
-  color: var(--color-malachite);
-  transform: translateX(-3px);
-}
-
-
-
 .heroTitle {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 6vw, 5.2rem);
   line-height: 0.95;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-}
-
-.heroSubtitle {
-  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
-  color: var(--text-secondary);
-  max-width: 720px;
-  line-height: 1.5;
 }
 
 .heroActions {
@@ -80,8 +54,11 @@
 }
 
 .primaryBtn:hover {
+  background: var(--color-black);
+  color: var(--color-malachite);
+  border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(34, 215, 96, 0.35);
+  box-shadow: none;
 }
 
 .secondaryBtn {
@@ -102,20 +79,23 @@
 }
 
 .secondaryBtn:hover {
-  border-color: var(--color-malachite);
-  color: var(--color-malachite);
+  background: var(--color-sunflower-gold);
+  border-color: var(--color-sunflower-gold);
+  color: var(--color-black);
 }
 
 /* ── Media Banner ── */
 .mediaBannerSection {
   padding: clamp(2rem, 4vw, 3rem) var(--page-padding);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .mediaWrapper {
   position: relative;
   width: 100%;
   height: clamp(320px, 50vh, 580px);
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba(242, 242, 242, 0.12);
   background: #0d0d0d;
@@ -130,65 +110,180 @@
 .bannerOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
   pointer-events: none;
 }
 
-
-/* ── Content Section ── */
+/* ── Overview & Capabilities Section ── */
 .contentSection {
-  padding: clamp(2rem, 5vw, 4rem) var(--page-padding);
-  max-width: 1200px;
+  padding: clamp(3rem, 6vw, 6rem) var(--page-padding);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.mainBody {
+.overviewWrapper {
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 4rem;
+}
+
+/* Top Overview Header Block */
+.overviewHeaderBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 900px;
 }
 
 .descriptionTitle {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(242, 242, 242, 0.12);
-  padding-bottom: 1.25rem;
+  line-height: 0.95;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
-.descriptionText {
-  font-size: clamp(1.15rem, 1.75vw, 1.45rem);
-  line-height: 1.8;
-  color: rgba(242, 242, 242, 0.95);
+.overallDescText {
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  line-height: 1.7;
+  color: rgba(242, 242, 242, 0.85);
+  margin: 0;
+  font-weight: 400;
 }
 
-/* Rich Text formatting inside descriptionText */
-.descriptionText p {
-  margin-bottom: 1.5rem;
+/* ── Staggered Sub Services Grid (refsubservices.png Design) ── */
+.staggeredGridSection {
+  width: 100%;
 }
 
-.descriptionText h2, .descriptionText h3 {
+.staggeredGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem clamp(2.5rem, 5vw, 5rem);
+}
+
+@media (min-width: 992px) {
+  .staggeredGrid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  /* Offset the left column (odd items) downwards matching refsubservices.png */
+  .staggeredItem:nth-child(odd) {
+    margin-top: clamp(4rem, 8vw, 9rem);
+  }
+}
+
+.staggeredItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Media frame matching reference image */
+.mediaFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #141518;
+  border: 1px solid rgba(242, 242, 242, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+.mediaImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.staggeredItem:hover .mediaImage {
+  transform: scale(1.05);
+}
+
+/* Circular Play Button in bottom right corner (matching refsubservices.png) */
+.playBadgeBtn {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  z-index: 5;
+}
+
+.staggeredItem:hover .playBadgeBtn {
+  transform: scale(1.12);
+  background: var(--color-sunflower-gold);
+  color: #000000;
+}
+
+/* Item Body below image */
+.itemBody {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemTitle {
   font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.staggeredItem:hover .itemTitle {
   color: var(--color-malachite);
-  margin-top: 2.25rem;
-  margin-bottom: 1rem;
-  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-  text-transform: uppercase;
 }
 
-.descriptionText ul, .descriptionText ol {
-  margin-left: 1.75rem;
-  margin-bottom: 1.5rem;
-  list-style: disc;
+.itemDesc {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(242, 242, 242, 0.72);
+  margin-bottom: 1.25rem;
 }
 
-.descriptionText li {
-  margin-bottom: 0.65rem;
+/* Visit -> Link matching reference image */
+.visitLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: color 0.25s ease, gap 0.25s ease;
+  width: fit-content;
+}
+
+.visitLink:hover,
+.staggeredItem:hover .visitLink {
+  color: var(--color-malachite);
+  gap: 0.75rem;
 }
 
 /* ── Gallery Showcase ── */
 .gallerySection {
   padding: clamp(3rem, 6vw, 5rem) var(--page-padding);
   border-top: 1px solid rgba(242, 242, 242, 0.1);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .galleryTitle {
@@ -236,15 +331,19 @@
   transform: scale(1.05);
 }
 
+/* ── CTA Section & Box ── */
+.ctaSection {
+  padding: clamp(3rem, 6vw, 5rem) var(--page-padding);
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
-
-/* ── CTA Box ── */
 .ctaBox {
-  margin: clamp(3rem, 6vw, 5rem) var(--page-padding) 0;
-  padding: 3.5rem clamp(2rem, 5vw, 4rem);
+  width: 100%;
+  padding: clamp(3rem, 5vw, 4.5rem) clamp(2rem, 5vw, 4.5rem);
   background: var(--color-sunflower-gold);
   color: var(--color-black);
-  border-radius: 16px;
+  border-radius: 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
@@ -272,7 +371,9 @@
 }
 
 .ctaBox .primaryBtn:hover {
-  background: #111111;
+  background: #000000;
+  color: var(--color-malachite);
+  border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: none;
 }
