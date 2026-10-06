@@ -129,8 +129,8 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow:
-    0 24px 60px rgba(0,0,0,0.75),
-    0 0 0 1px rgba(255,255,255,0.12);
+    0 24px 60px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
   z-index: 3;
   animation: cardFloat 5s ease-in-out 1s infinite;
 }
@@ -177,8 +177,15 @@
 }
 
 @keyframes cardFloat {
-  0%, 100% { transform: translateY(-50%) rotate(-3deg); }
-  50%       { transform: translateY(calc(-50% - 10px)) rotate(-1deg); }
+
+  0%,
+  100% {
+    transform: translateY(-50%) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(calc(-50% - 10px)) rotate(-1deg);
+  }
 }
 
 
@@ -215,8 +222,13 @@
 }
 
 @keyframes marqueeRun {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* ============================================================
@@ -225,7 +237,7 @@
 .manifestoSection {
   padding: clamp(5rem, 10vw, 9rem) var(--page-padding, clamp(1.5rem, 5vw, 5rem));
   background: #050505;
-  border-top: 1px solid rgba(242,242,242,0.1);
+  border-top: 1px solid rgba(242, 242, 242, 0.1);
 }
 
 .manifestoReveal {
@@ -258,13 +270,11 @@
 .fullWidthBannerOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(5, 5, 5, 0.45) 0%,
-    transparent 35%,
-    transparent 65%,
-    rgba(5, 5, 5, 0.65) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(5, 5, 5, 0.45) 0%,
+      transparent 35%,
+      transparent 65%,
+      rgba(5, 5, 5, 0.65) 100%);
   pointer-events: none;
 }
 
@@ -349,6 +359,7 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+
   .dnaRightText {
     text-align: left;
     justify-self: start;
@@ -359,6 +370,7 @@
   .dnaCardsGrid {
     grid-template-columns: 1fr;
   }
+
   .dnaCard {
     aspect-ratio: 4 / 3;
   }
@@ -370,7 +382,7 @@
 .servicesSection {
   padding: clamp(5rem, 10vw, 9rem) var(--page-padding, clamp(1.5rem, 5vw, 5rem));
   background: #000000;
-  border-top: 1px solid rgba(242,242,242,0.1);
+  border-top: 1px solid rgba(242, 242, 242, 0.1);
 }
 
 .servicesHeader {
@@ -394,7 +406,7 @@
 
 .sectionDesc {
   font-size: 0.95rem;
-  color: rgba(242,242,242,0.6);
+  color: rgba(242, 242, 242, 0.6);
   max-width: 420px;
   line-height: 1.6;
 }
@@ -412,18 +424,18 @@
   align-items: center;
   gap: 2rem;
   padding: 2.25rem 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   border-radius: 8px;
   cursor: default;
 }
 
 .serviceRow:last-child {
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .serviceRow:hover {
-  background: rgba(34,215,96,0.04);
+  background: rgba(34, 215, 96, 0.04);
   transform: translateX(8px);
 }
 
@@ -444,7 +456,7 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(242,242,242,0.45);
+  color: rgba(242, 242, 242, 0.45);
   text-align: right;
   white-space: nowrap;
 }
@@ -485,7 +497,7 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(0,0,0,0.65);
+  color: rgba(0, 0, 0, 0.65);
   font-weight: 600;
 }
 
@@ -614,7 +626,7 @@
 .mediaStrip {
   padding: 0;
   background: #080808;
-  border-top: 1px solid rgba(242,242,242,0.08);
+  border-top: 1px solid rgba(242, 242, 242, 0.08);
   overflow: hidden;
 }
 
@@ -627,8 +639,13 @@
 }
 
 @keyframes stripScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .stripCard {
@@ -638,7 +655,7 @@
   overflow: hidden;
   flex-shrink: 0;
   position: relative;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stripCardImg {
@@ -658,7 +675,7 @@
 .ctaSection {
   padding: clamp(5rem, 10vw, 9rem) var(--page-padding, clamp(1.5rem, 5vw, 5rem));
   background: #000000;
-  border-top: 1px solid rgba(242,242,242,0.1);
+  border-top: 1px solid rgba(242, 242, 242, 0.1);
   position: relative;
   text-align: center;
   overflow: hidden;
@@ -673,7 +690,7 @@
   height: 60vw;
   max-width: 700px;
   max-height: 700px;
-  background: radial-gradient(circle, rgba(34,215,96,0.14) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(34, 215, 96, 0.14) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -695,7 +712,7 @@
 
 .ctaSubtext {
   font-size: clamp(1.05rem, 1.8vw, 1.3rem);
-  color: rgba(242,242,242,0.65);
+  color: rgba(242, 242, 242, 0.65);
   margin-bottom: 3rem;
   max-width: 600px;
   margin-left: auto;
@@ -715,7 +732,7 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   border-radius: 9999px;
-  box-shadow: 0 0 40px rgba(34,215,96,0.4);
+  box-shadow: 0 0 40px rgba(34, 215, 96, 0.4);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -737,8 +754,9 @@
   }
 
   .heroLeft {
-    padding-bottom: 2rem;
-    min-height: 80svh;
+    padding: 2rem 2rem 2rem;
+    min-height: auto;
+    justify-content: flex-start;
   }
 
   .heroRight {
@@ -769,6 +787,10 @@
 }
 
 @media (max-width: 640px) {
+  .heroLeft {
+    padding: 8rem 1.25rem 1.5rem;
+  }
+
   .heroHeadline {
     font-size: clamp(2.4rem, 11vw, 4rem);
   }
@@ -780,5 +802,39 @@
   .mockupStack {
     width: 80vw;
     height: 50vw;
+  }
+
+  /* Vertical team cards list on mobile with no border and no left padding */
+  .teamGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .teamCard {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    padding-left: 0;
+  }
+
+  .teamCard:hover {
+    border-color: transparent;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .teamImgWrapper {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
+  }
+
+  .teamCardInfo {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 1rem;
+    padding-bottom: 0;
+    background: transparent;
   }
 }

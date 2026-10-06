@@ -128,9 +128,7 @@ const CATEGORIES = [
 export default function WorksPage() {
   const [projects, setProjects] = useState<ProjectItem[]>(fallbackProjects);
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedYear, setSelectedYear] = useState<string>('All');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode] = useState<'grid' | 'list'>('grid');
   const [selectedProjectModal, setSelectedProjectModal] = useState<ProjectItem | null>(null);
 
   // Floating mouse preview state for list view
@@ -181,37 +179,16 @@ export default function WorksPage() {
     setMousePos({ x: e.clientX, y: e.clientY });
   }, []);
 
-  // Filter projects by category, search query, and year
+  // Filter projects by category
   const filteredProjects = useMemo(() => {
     return projects.filter((item) => {
-      // Category filter
-      const categoryMatch =
+      return (
         activeCategory === 'All' ||
         item.tag.some((t) => t.toLowerCase() === activeCategory.toLowerCase()) ||
-        item.sub_title.toLowerCase().includes(activeCategory.toLowerCase());
-
-      // Search filter
-      const query = searchQuery.trim().toLowerCase();
-      const searchMatch =
-        !query ||
-        item.title.toLowerCase().includes(query) ||
-        item.sub_title.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query) ||
-        item.tag.some((t) => t.toLowerCase().includes(query));
-
-      // Year filter
-      const yearMatch =
-        selectedYear === 'All' || String(item.year) === String(selectedYear);
-
-      return categoryMatch && searchMatch && yearMatch;
+        item.sub_title.toLowerCase().includes(activeCategory.toLowerCase())
+      );
     });
-  }, [projects, activeCategory, searchQuery, selectedYear]);
-
-  // Unique list of years for select filter
-  const availableYears = useMemo(() => {
-    const years = new Set(projects.map((p) => String(p.year)));
-    return ['All', ...Array.from(years).sort().reverse()];
-  }, [projects]);
+  }, [projects, activeCategory]);
 
   // Flagship project spotlight (first project in array)
   const spotlightProject = projects[0] || fallbackProjects[0];
@@ -256,17 +233,19 @@ export default function WorksPage() {
               <h2 className={styles.spotlightTitle}>{spotlightProject.title}</h2>
               <p className={styles.spotlightSub}>{spotlightProject.sub_title}</p>
               <div className={styles.spotlightActions}>
-                <Link
-                  href={`/works/${spotlightProject.slug}`}
+                <button
+                  type="button"
+                  onClick={() => setSelectedProjectModal(spotlightProject)}
                   className={styles.btnPrimary}
                 >
-                  <span>Explore Case Study</span>
+                  <span>Explore Showcase</span>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
-                </Link>
+                </button>
                 <button
+                  type="button"
                   onClick={() => setSelectedProjectModal(spotlightProject)}
                   className={styles.btnSecondary}
                 >
@@ -279,7 +258,7 @@ export default function WorksPage() {
       )}
 
       {/* ═══════════════════════════════════════════════
-          CONTROLS TOOLBAR (Filters, Search & View Switcher)
+          CONTROLS TOOLBAR (Category Filters)
       ═══════════════════════════════════════════════ */}
       <section className={styles.controlsBar} aria-label="Filter works">
         {/* Category Pills */}
@@ -297,95 +276,7 @@ export default function WorksPage() {
           ))}
         </div>
 
-        {/* Search, Year & View switcher */}
-        <div className={styles.controlsTop}>
-          <div className={styles.controlsRight}>
-            {/* Search Box */}
-            <div className={styles.searchBox}>
-              <svg
-                className={styles.searchIcon}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search works by keyword..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={styles.searchInput}
-              />
-            </div>
 
-            {/* Year Filter */}
-            <select
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(e.target.value)}
-              className={styles.selectInput}
-              aria-label="Filter by Year"
-            >
-              <option value="All">All Years</option>
-              {availableYears
-                .filter((y) => y !== 'All')
-                .map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-            </select>
-
-            {/* View Mode Switcher */}
-            <div className={styles.viewSwitcher} aria-label="Toggle View Mode">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`${styles.viewBtn} ${
-                  viewMode === 'grid' ? styles.viewBtnActive : ''
-                }`}
-                aria-label="Grid View"
-                title="Grid View"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z" />
-                </svg>
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`${styles.viewBtn} ${
-                  viewMode === 'list' ? styles.viewBtnActive : ''
-                }`}
-                aria-label="List View"
-                title="List View"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M3 4h18v2H3zm0 7h18v2H3zm0 7h18v2H3z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Results summary counter */}
-        <div className={styles.resultsSummary}>
-          <span>
-            Showing {filteredProjects.length} of {projects.length} Works
-          </span>
-          {(activeCategory !== 'All' || searchQuery || selectedYear !== 'All') && (
-            <button
-              onClick={() => {
-                setActiveCategory('All');
-                setSearchQuery('');
-                setSelectedYear('All');
-              }}
-              style={{ color: 'var(--color-malachite)', textDecoration: 'underline' }}
-            >
-              Reset Filters
-            </button>
-          )}
-        </div>
       </section>
 
       {/* ═══════════════════════════════════════════════
@@ -399,11 +290,7 @@ export default function WorksPage() {
               We couldn&apos;t find any project matching your criteria. Try adjusting your search query or filters.
             </p>
             <button
-              onClick={() => {
-                setActiveCategory('All');
-                setSearchQuery('');
-                setSelectedYear('All');
-              }}
+              onClick={() => setActiveCategory('All')}
               className={styles.resetBtn}
             >
               Reset All Filters
@@ -413,7 +300,11 @@ export default function WorksPage() {
           /* ── GRID VIEW ── */
           <div className={styles.gridContainer}>
             {filteredProjects.map((project) => (
-              <div key={project.id} className={styles.workCard}>
+              <div
+                key={project.id}
+                className={styles.workCard}
+                onClick={() => setSelectedProjectModal(project)}
+              >
                 <div className={styles.cardImageWrap}>
                   <img
                     src={project.featured_image}
@@ -445,8 +336,12 @@ export default function WorksPage() {
                       Quick Preview
                     </button>
 
-                    <Link
-                      href={`/works/${project.slug}`}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedProjectModal(project);
+                      }}
                       className={styles.cardArrow}
                       aria-label={`View ${project.title}`}
                     >
@@ -461,7 +356,7 @@ export default function WorksPage() {
                         <line x1="7" y1="17" x2="17" y2="7" />
                         <polyline points="7 7 17 7 17 17" />
                       </svg>
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -475,10 +370,10 @@ export default function WorksPage() {
             onMouseLeave={() => setHoveredListImg(null)}
           >
             {filteredProjects.map((project, idx) => (
-              <Link
+              <div
                 key={project.id}
-                href={`/works/${project.slug}`}
                 className={styles.listItem}
+                onClick={() => setSelectedProjectModal(project)}
                 onMouseEnter={() => setHoveredListImg(project.featured_image)}
               >
                 <span className={styles.listNum}>
@@ -502,7 +397,7 @@ export default function WorksPage() {
                     <polyline points="7 7 17 7 17 17" />
                   </svg>
                 </span>
-              </Link>
+              </div>
             ))}
 
             {/* Floating Image Preview on Hover (List View) */}
@@ -527,7 +422,7 @@ export default function WorksPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════
-          LIGHTBOX QUICK VIEW MODAL
+          LIGHTBOX QUICK VIEW MODAL (Full Details)
       ═══════════════════════════════════════════════ */}
       {selectedProjectModal && (
         <div
@@ -568,33 +463,76 @@ export default function WorksPage() {
 
               <h2 className={styles.modalTitle}>{selectedProjectModal.title}</h2>
               <p className={styles.modalSubTitle}>{selectedProjectModal.sub_title}</p>
-              <p className={styles.modalDesc}>{selectedProjectModal.description}</p>
+
+              {/* Main Content Grid: Overview & Specs */}
+              <div className={styles.modalContentGrid}>
+                <div className={styles.modalMainCol}>
+                  <div className={styles.modalSection}>
+                    <h3 className={styles.modalSectionHeading}>Project Overview</h3>
+                    <p className={styles.modalDesc}>{selectedProjectModal.description}</p>
+                  </div>
+
+                  <div className={styles.modalSection}>
+                    <h3 className={styles.modalSectionHeading}>Technical Execution</h3>
+                    <p className={styles.modalDesc}>
+                      PlayOn provided end-to-end creative direction, zero-latency graphic telemetry pipelines, and customized broadcast packages. Every visual asset was optimized to perform flawlessly under high-stress live arena conditions.
+                    </p>
+                  </div>
+                </div>
+
+                <div className={styles.modalSidebar}>
+                  <div className={styles.modalSpecItem}>
+                    <span className={styles.modalSpecLabel}>Category</span>
+                    <span className={styles.modalSpecValue}>{selectedProjectModal.tag.join(', ')}</span>
+                  </div>
+
+                  <div className={styles.modalSpecItem}>
+                    <span className={styles.modalSpecLabel}>Release Year</span>
+                    <span className={styles.modalSpecValue}>{selectedProjectModal.year}</span>
+                  </div>
+
+                  <div className={styles.modalSpecItem}>
+                    <span className={styles.modalSpecLabel}>Services Provided</span>
+                    <span className={styles.modalSpecValue}>
+                      Arena Broadcast, Real-Time Graphics, Kinetic Motion, 3D VFX
+                    </span>
+                  </div>
+
+                  <div className={styles.modalSpecItem}>
+                    <span className={styles.modalSpecLabel}>Agency</span>
+                    <span className={styles.modalSpecValue}>PlayOn Agency</span>
+                  </div>
+                </div>
+              </div>
 
               {/* Gallery Preview */}
               {selectedProjectModal.gallery && selectedProjectModal.gallery.length > 0 && (
-                <div className={styles.modalGalleryGrid}>
-                  {selectedProjectModal.gallery.map((img, i) => (
-                    <div key={i} className={styles.galleryThumb}>
-                      <img src={img} alt={`Gallery ${i + 1}`} />
-                    </div>
-                  ))}
+                <div className={styles.modalGallerySection}>
+                  <h3 className={styles.modalSectionHeading}>Visual Showcase Gallery</h3>
+                  <div className={styles.modalGalleryGrid}>
+                    {selectedProjectModal.gallery.map((img, i) => (
+                      <div key={i} className={styles.galleryThumb}>
+                        <img src={img} alt={`Gallery asset ${i + 1}`} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 
               <div className={styles.modalFooter}>
                 <button
                   onClick={() => setSelectedProjectModal(null)}
-                  style={{ color: 'rgba(242, 242, 242, 0.6)', fontSize: '0.85rem' }}
+                  className={styles.modalCloseLink}
                 >
                   Close Preview
                 </button>
 
                 <Link
-                  href={`/works/${selectedProjectModal.slug}`}
+                  href="/contact"
                   className={styles.btnPrimary}
                   onClick={() => setSelectedProjectModal(null)}
                 >
-                  <span>Go To Full Case Study</span>
+                  <span>Discuss Your Project</span>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
